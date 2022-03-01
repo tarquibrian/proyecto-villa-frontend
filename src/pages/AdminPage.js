@@ -8,9 +8,7 @@ import { SidebarMap } from "../components/Map/SidebarMap";
 import { useLoadScript } from "@react-google-maps/api";
 import Form from "../components/Form/Form";
 import { FormHistorias } from "../components/FormHistorias/FormHistorias";
-
-const credential = "AIzaSyAKMws4QJbXE3xtlmJRBpJwfk1BUCUMEhg";
-const mapURL = `https://maps.googleapis.com/maps/api/js?v=3.exp&key=${credential}`;
+import { Historia } from "../components/Historia/Historia";
 
 export const AdminPage = () => {
   const { isLoaded } = useLoadScript({
@@ -22,26 +20,19 @@ export const AdminPage = () => {
       <NavbarAdmin />
       <Tabs>
         <TabList>
-          <Tab>HISTORIA</Tab>
-          <Tab>EVENTOS</Tab>
-          <Tab>LUGARES</Tab>
+          <Tab>GESTION DE HISTORIAS</Tab>
+          <Tab>PLANIFICACION DE EVENTOS</Tab>
+          <Tab>LUGARES TURISTICOS</Tab>
         </TabList>
         <TabPanel>
-          <FormHistorias />
-          <Form />
+          <Historia />
         </TabPanel>
         <TabPanel>
           <CalendarScreen />
         </TabPanel>
         <TabPanel>
-          <SidebarMap />
-          {isLoaded ? <Map /> : null}
-          {/* <Map
-            googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKMws4QJbXE3xtlmJRBpJwfk1BUCUMEhg&v=3.exp&libraries=geometry,drawing,places"
-            loadingElement={<div style={{ height: `100%` }} />}
-            containerElement={<div style={{ height: `80vh` }} />}
-            mapElement={<div style={{ height: `100%` }} />}
-          /> */}
+          {/* <SidebarMap /> */}
+          {isLoaded ? <Map directions /> : null}
         </TabPanel>
       </Tabs>
     </div>

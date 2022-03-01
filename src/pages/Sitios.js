@@ -10,6 +10,8 @@ import {
   FeatureTitle,
 } from "../components/Features/FeaturesStyles";
 
+import Mapp from "../components/Map/Mapp"
+
 export const Sitios = () => {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: "AIzaSyAKMws4QJbXE3xtlmJRBpJwfk1BUCUMEhg", // Add your API key

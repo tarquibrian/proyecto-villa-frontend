@@ -14,6 +14,11 @@ import { AdminPage } from "./pages/AdminPage";
 import { startChecking } from "./actions/auth";
 import { PublicRoute } from "./routes/PublicRoute";
 import { PrivateRoute } from "./routes/PrivateRoute";
+import { Users } from "./pages/Users";
+import { Single } from "./pages/single/Single";
+import { NewPost } from "./pages/newpost/NewPost";
+import { HistoriaHome } from './components/Historia/HistoriaHome'
+import { SingleHistoria } from "./pages/single/SingleHistoria";
 
 function App() {
   console.log(process.env);
@@ -69,10 +74,31 @@ function App() {
           component={Login}
           isAuthenticated={!!uid}
         />
+        <PublicRoute
+          path="/postHome/:postId"
+          component={SingleHistoria}
+          isAuthenticated={!!uid}
+        />
+        <PrivateRoute
+          path="/post/:postId"
+          component={Single}
+          isAuthenticated={!!uid}
+        />
+        <PrivateRoute
+          path="/newpost"
+          component={NewPost}
+          isAuthenticated={!!uid}
+        />
         <PrivateRoute
           exact
           path="/admin-panel"
           component={AdminPage}
+          isAuthenticated={!!uid}
+        />
+        <PrivateRoute
+          exact
+          path="/admin-users"
+          component={Users}
           isAuthenticated={!!uid}
         />
 

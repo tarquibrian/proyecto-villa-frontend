@@ -7,6 +7,7 @@ export const heroOne = {
 	headline: "Cuna de Hombres Célebres y Pueblo de Grandes Tradiciones",
 	description: 'Villa Rivero es una localidad y municipio de Bolivia, ubicado en la provincia de Punata del departamento de Cochabamba.',
 	buttonLabel: 'Saber Más',
+	linkTo: '/pricing',
 	imgStart: 'start',
 	img: './assets/villa.jfif',
 	start: 'true',
@@ -22,7 +23,7 @@ export const heroTwo = {
 	description: 'La parroquia San Isidro, el centro de residentes y  la Alcaldía de Villa Rivero veneran en julio a la milagrosa Virgen María del Carmen.',
 	buttonLabel: 'Ver Eventos',
 
-	linkTo: '/more',
+	linkTo: '/signup',
 	imgStart: 'start',
 	img: './assets/virgen-maria-del-carmen.jpg',
 	start: 'true',
@@ -39,7 +40,7 @@ export const heroThree = {
 		'La histórica casa del notable militar, político y presidente de Bolivia, Gualberto Villarroel López (1908-1946)',
 	buttonLabel: 'Ver Sitios',
 
-	linkTo: '/download',
+	linkTo: '/sitios',
 	imgStart: '',
 	img: './assets/casa-gualberto-villarroel.jpg',
 	start: 'true',
