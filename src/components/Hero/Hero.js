@@ -12,12 +12,12 @@ const Hero = () => {
 				<HeroText>
 				"Cuna de Hombres Célebres y Pueblo de Grandes Tradiciones".
 				</HeroText>
-				<ButtonWrapper>
+				{/* <ButtonWrapper>
 					<Link to="signup">
 						<Button>Iniciar Sesión</Button>
 					</Link>
 					<HeroButton>Ver historias</HeroButton>
-				</ButtonWrapper>
+				</ButtonWrapper> */}
 			</Container>
 		</HeroSection>
 	);

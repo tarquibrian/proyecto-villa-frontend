@@ -14,12 +14,11 @@ import {
 } from "./FooterStyles";
 import { footerData, footerSocialData } from "../../data/FooterData";
 import { Row, Section } from "../../globalStyles";
-import { useLocation, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 function Footer() {
   
   let history = useHistory();
-	let location = useLocation();
   
   const closeMobileMenu = (to, id) => {
 

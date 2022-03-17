@@ -54,7 +54,7 @@ export const Login = () => {
 
     dispatchh({ type: "LOGIN_START" });
     try {
-      const res = await axios.post("http://localhost:4000/api/auth", {
+      const res = await axios.post(`${process.env.REACT_APP_API_URL}/auth`, {
         email: userRef.current.value,
         password: passwordRef.current.value,
       });

@@ -11,14 +11,14 @@ export const Historia = () => {
   const { search } = useLocation();
   useEffect(() => {
     const fetchPosts = async () => {
-      const res = await axios.get("http://localhost:4000/api/posts" + search);
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/posts` + search);
       setPosts(res.data);
     };
     fetchPosts();
   }, [search]);
   return (
     <Container>
-      <Sidebar />
+      {/* <Sidebar /> */}
       <AddNewPost />
       <HistoriaPosts posts={posts} />
     </Container>

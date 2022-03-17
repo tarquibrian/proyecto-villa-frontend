@@ -2,9 +2,9 @@ import styled, { createGlobalStyle } from "styled-components";
 
 export const FabDanger = styled.button`
   bottom: 25px;
-    padding: 10px;
-    position: fixed;
-    left: 25px;
+  padding: 10px;
+  position: fixed;
+  left: 25px;
 `;
 
 const GlobalStyle = createGlobalStyle`

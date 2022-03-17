@@ -3,7 +3,6 @@ import { Calendar, momentLocalizer } from "react-big-calendar";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import { ContainerCalendar } from "./CalendarScreenStyles";
-import pdfmake from "pdfmake";
 
 import { messages } from "../../data/CalendarData";
 import { CalendarEvent } from "./CalendarEvent";
@@ -17,6 +16,7 @@ import {
   eventSetActive,
   eventClearActiveEvent,
   eventStartLoading,
+  eventStartLoadingHome,
 } from "../../actions/events";
 import { AddNewFab } from "../ButtonAdd/AddNewFab";
 import { DeleteEventFab } from "../ButtonAdd/DeleteEventFab";
@@ -25,17 +25,17 @@ moment.locale("es");
 
 const localizer = momentLocalizer(moment);
 
-export const CalendarScreen = () => {
+export const CalendarScreenHome = () => {
   const dispatch = useDispatch();
   const { events, activeEvent } = useSelector((state) => state.calendar);
   const { uid } = useSelector((state) => state.auth);
-  console.log(uid);
+  console.log(uid)
   const [lastView, setLastView] = useState(
     localStorage.getItem("lastView") || "month"
   );
 
   useEffect(() => {
-    dispatch(eventStartLoading());
+    dispatch(eventStartLoadingHome());
   }, [dispatch]);
 
   const onDoubleClick = (e) => {
@@ -58,7 +58,7 @@ export const CalendarScreen = () => {
 
   const eventStyleGetter = (event, start, end, isSelected) => {
     const style = {
-      backgroundColor: uid === event.user._id ? "#367CF7" : "#465660",
+      backgroundColor: (uid === undefined ) ? "#367CF7" : "#465660",
       borderRadius: "0px",
       opacity: 0.8,
       display: "block",
@@ -69,14 +69,7 @@ export const CalendarScreen = () => {
       style,
     };
   };
-  const docDefinition = {
-    content: [
-      'This paragraph fills full width, as there are no columns. Next paragraph however consists of three columns',
-    ]
-  };
-  const generarPDF = () => {
-    pdfmake.createPdf(docDefinition).download();
-  };
+
   return (
     <ContainerCalendar className="calendar-screen">
       <Calendar
@@ -97,11 +90,8 @@ export const CalendarScreen = () => {
         }}
       />
 
-      <AddNewFab />
+      {/* {activeEvent && <DeleteEventFab />} */}
 
-      {activeEvent && <DeleteEventFab />}
-
-      <button onClick={generarPDF}>GENERAR PDF</button>
       <CalendarModal />
     </ContainerCalendar>
   );

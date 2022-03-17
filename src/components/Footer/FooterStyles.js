@@ -102,7 +102,7 @@ export const FooterLinkTitle = styled.h2`
 `;
 
 export const FooterLink = styled.span`
-	color: #fff;
+	color: #0467fb;
 	text-decoration: none;
 	margin-bottom: 0.5rem;
 	cursor: pointer;

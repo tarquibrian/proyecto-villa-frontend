@@ -26,11 +26,11 @@ export const NewPost = () => {
       data.append("file", file);
       newPost.photo = filename;
       try {
-        await axios.post("http://localhost:4000/api/upload", data);
+        await axios.post(`${process.env.REACT_APP_API_URL}/upload`, data);
       } catch (err) {}
     }
     try {
-      const res = await axios.post("http://localhost:4000/api/posts", newPost);
+      const res = await axios.post(`${process.env.REACT_APP_API_URL}/posts`, newPost);
       window.location.replace("http://localhost:3000/#/post/" + res.data._id);
     } catch (err) {}
   };

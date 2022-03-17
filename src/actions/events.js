@@ -1,4 +1,4 @@
-import { fetchConToken } from "../helpers/fetch";
+import { fetchConToken, fetchSinToken } from "../helpers/fetch";
 import { types } from "../types/types";
 import { prepareEvents } from "../helpers/prepareEvents";
 import Swal from "sweetalert2";
@@ -87,6 +87,20 @@ export const eventStartLoading = () => {
       const resp = await fetchConToken("events");
       const body = await resp.json();
 
+      const events = prepareEvents(body.eventos);
+      dispatch(eventLoaded(events));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const eventStartLoadingHome = () => {
+  return async (dispatch) => {
+    try {
+      const resp = await fetchSinToken("events");
+      const body = await resp.json();
+      console.log(body)
       const events = prepareEvents(body.eventos);
       dispatch(eventLoaded(events));
     } catch (error) {

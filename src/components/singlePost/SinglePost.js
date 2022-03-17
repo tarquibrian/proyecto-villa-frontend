@@ -6,7 +6,8 @@ import { Link } from "react-router-dom";
 import { Context } from "../../context/Context";
 import "./singlePost.css";
 import { Sidebar } from "../sidebar/Sidebar";
-import { Container } from "../Historia/HistoriaStyle";
+import { Container } from "../../globalStyles";
+// import { Container } from "../Historia/HistoriaStyle";
 
 export const SinglePost = () => {
   const location = useLocation();
@@ -20,18 +21,17 @@ export const SinglePost = () => {
 
   useEffect(() => {
     const getPost = async () => {
-      const res = await axios.get("http://localhost:4000/api/posts/" + path);
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/posts/` + path);
       setPost(res.data);
       setTitle(res.data.title);
       setDesc(res.data.desc);
-      console.log("usuario", user);
     };
     getPost();
   }, [path]);
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`http://localhost:4000/api/posts/${post._id}`, {
+      await axios.delete(`${process.env.REACT_APP_API_URL}/posts/${post._id}`, {
         data: { username: user.name },
       });
       window.location.replace("/");
@@ -40,7 +40,7 @@ export const SinglePost = () => {
 
   const handleUpdate = async () => {
     try {
-      await axios.put(`http://localhost:4000/api/posts/${post._id}`, {
+      await axios.put(`${process.env.REACT_APP_API_URL}/posts/${post._id}`, {
         username: user.name,
         title,
         desc,
@@ -51,7 +51,7 @@ export const SinglePost = () => {
 
   return (
     <Container>
-      <Sidebar />
+      {/* <Sidebar /> */}
       <div className="singlePost">
         <div className="singlePostWrapper">
           <Link className="blogItem-link" to={`/admin-panel`}>

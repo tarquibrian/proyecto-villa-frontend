@@ -8,19 +8,32 @@ import { ContentPost } from "../Content/ContentPost";
 
 export const HistoriaHome = () => {
   const [posts, setPosts] = useState([]);
+  const [bool, setBool] = useState(true);
   const { search } = useLocation();
   useEffect(() => {
     const fetchPosts = async () => {
-      const res = await axios.get("http://localhost:4000/api/posts" + search);
+      const res = await axios.get(
+        `${process.env.REACT_APP_API_URL}/posts` + search
+      );
       setPosts(res.data);
-      console.log(res.data)
     };
     fetchPosts();
   }, [search]);
+  const cambio = () => {
+    if (bool === true) {
+      setBool(false);
+    } else {
+      setBool(true);
+    }
+  };
   return (
     <div>
       {/* <HistoriaHomePosts posts={posts} /> */}
-      <ContentPost posts={posts} />
+      {posts.map((p) => (
+        <div>
+          <ContentPost posts={p} valor={bool} />
+        </div>
+      ))}
     </div>
   );
 };

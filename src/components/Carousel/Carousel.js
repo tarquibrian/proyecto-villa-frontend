@@ -18,6 +18,7 @@ import {
 } from "./CarouselStyles";
 import { FeatureTextWrapper, FeatureTitle } from "../Features/FeaturesStyles";
 import { CalendarScreen } from "../Calendar/CalendarScreen";
+import { CalendarScreenHome } from "../Calendar/CalendarScreenHome";
 const Carousel = () => {
   const [sliderRef, setSliderRef] = useState(null);
 
@@ -25,9 +26,9 @@ const Carousel = () => {
     <Section smPadding="50px 10px" position="relative" inverse id="about">
       <Container>
           <FeatureTitle>CALENDARIO DE EVENTOS</FeatureTitle>
-        <CalendarScreen />
+        <CalendarScreenHome />
       </Container>
-      <Container>
+      {/* <Container>
         <Row justify="space-between" margin="1rem" wrap="wrap">
           <Heading width="auto" inverse>
             EVENTOS PROXIMOS
@@ -54,7 +55,7 @@ const Carousel = () => {
             </ImageWrapper>
           ))}
         </ReviewSlider>
-      </Container>
+      </Container> */}
     </Section>
   );
 };

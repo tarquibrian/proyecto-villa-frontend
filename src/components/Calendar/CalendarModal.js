@@ -40,6 +40,7 @@ const initEvent = {
 export const CalendarModal = () => {
   const { modalOpen } = useSelector((state) => state.ui);
   const { activeEvent } = useSelector((state) => state.calendar);
+  const { uid } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const [dateStart, setDateStart] = useState(now.toDate());
@@ -121,7 +122,7 @@ export const CalendarModal = () => {
       className="modal"
       overlayClassName="modal-fondo"
     >
-      <h1> Nuevo Evento </h1>
+      <h1> Detalles de Evento </h1>
       <hr />
       <form className="container" onSubmit={handleSubmitForm}>
         <div className="form-group">
@@ -130,6 +131,7 @@ export const CalendarModal = () => {
             onChange={handleStartDateChange}
             value={dateStart}
             className="form-control"
+            disabled={uid ? false : true}
           />
         </div>
 
@@ -140,6 +142,7 @@ export const CalendarModal = () => {
             value={dateEnd}
             minDate={dateStart}
             className="form-control"
+            disabled={uid ? false : true}
           />
         </div>
 
@@ -154,6 +157,7 @@ export const CalendarModal = () => {
             autoComplete="off"
             value={title}
             onChange={handleInputChange}
+            disabled={uid ? false : true}
           />
           <small id="emailHelp" className="form-text text-muted">
             Una descripción corta
@@ -169,16 +173,18 @@ export const CalendarModal = () => {
             name="notes"
             value={notes}
             onChange={handleInputChange}
+            disabled={uid ? false : true}
           ></textarea>
           <small id="emailHelp" className="form-text text-muted">
             Información adicional
           </small>
         </div>
-
-        <button type="submit" className="btn btn-outline-primary btn-block">
-          <i className="far fa-save"></i>
-          <span> Guardar</span>
-        </button>
+        {uid !== undefined && (
+          <button type="submit" className="btn btn-outline-primary btn-block">
+            <i className="far fa-save"></i>
+            <span> Guardar</span>
+          </button>
+        )}
       </form>
     </Modal>
   );

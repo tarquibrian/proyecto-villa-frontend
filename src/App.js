@@ -30,7 +30,7 @@ function App() {
     dispatch(startChecking());
   }, [dispatch]);
   if (checking) {
-    return <h5>Espere...</h5>;
+    return <h5>Espere por favor o revise su conexion a internet...</h5>;
   }
 
   return (
