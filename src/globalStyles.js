@@ -24,7 +24,7 @@ export const Container = styled.div`
   padding: 0 50px;
 
   @media screen and (max-width: 960px) {
-    padding: 0 30px;
+    padding: ${({ inpading }) => (inpading ? inpading : "0 30px")}; 
   }
 `;
 export const MainHeading = styled.h1`
@@ -58,7 +58,7 @@ export const TextWrapper = styled.span`
   margin-top: ${({ mt }) => (mt ? mt : "")};
 `;
 export const Section = styled.section`
-  padding: ${({ padding }) => (padding ? padding : "140px 0")};
+  padding: ${({ padding }) => (padding ? padding : "80px 0")};
   margin: ${({ margin }) => (margin ? margin : "")};
   background: ${({ inverse }) => (inverse ? "white" : "#071c2f")};
   position: ${({ position }) => (position ? position : "")};
@@ -68,9 +68,8 @@ export const Section = styled.section`
   height: ${({ height }) => (height ? height : "auto")};
   max-height: ${({ maxHeight }) => (maxHeight ? maxHeight : "auto")};
   min-height: ${({ minHeight }) => (minHeight ? minHeight : "auto")};
-
   @media screen and (max-width: 768px) {
-    padding: ${({ smPadding }) => (smPadding ? smPadding : "70px 0")};
+    padding: ${({ smPadding }) => (smPadding ? smPadding : "40px 0")};
   }
 `;
 

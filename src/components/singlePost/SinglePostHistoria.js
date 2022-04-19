@@ -8,13 +8,13 @@ import "./singlePost.css";
 import { Sidebar } from "../sidebar/Sidebar";
 // import { Container } from "../Historia/HistoriaStyle";
 import Navbar from "../Navbar/Navbar";
-import { Container } from "../../globalStyles";
+import { Container, Section, Row, Heading, TextWrapper } from "../../globalStyles";
 
 export const SinglePostHistoria = () => {
   const location = useLocation();
   const path = location.pathname.split("/")[2];
   const [post, setPost] = useState({});
-  const PF = "http://localhost:4000/images/";
+  const PF = process.env.REACT_APP_IMG_URL + "/images/";
   const { user } = useContext(Context);
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
@@ -22,7 +22,9 @@ export const SinglePostHistoria = () => {
 
   useEffect(() => {
     const getPost = async () => {
-      const res = await axios.get(`${process.env.REACT_APP_API_URL}/posts/` + path);
+      const res = await axios.get(
+        `${process.env.REACT_APP_API_URL}/posts/` + path
+      );
       setPost(res.data);
       setTitle(res.data.title);
       setDesc(res.data.desc);
@@ -51,30 +53,36 @@ export const SinglePostHistoria = () => {
   };
 
   return (
-    <div className="margin">
-      <Navbar />
-      <Container>
-        {/* <Sidebar /> */}
-        <div className="singlePost">
-          <div className="singlePostWrapper">
-            <Link className="blogItem-link" to={`/pricing`}>
-              atras
-            </Link>
-            {post.photo && (
-              <img src={PF + post.photo} alt="" className="singlePostImg" />
-            )}
-            {updateMode ? (
-              <input
-                type="text"
-                value={title}
-                className="singlePostTitleInput"
-                autoFocus
-                onChange={(e) => setTitle(e.target.value)}
-              />
-            ) : (
-              <h1 className="singlePostTitle">
-                {title}
-                {/* {post.username === user?.name && (
+    <>
+      <Section smPadding="50px 0px" inverse id="about" margin="50px 0 0 0">
+        <Navbar />
+        <Container>
+          {/* <Sidebar /> */}
+          <Row>
+            <Heading inverse>
+              {post.title}
+            </Heading>
+          </Row>
+          <div className="singlePost">
+            <div className="singlePostWrapper">
+              <Link className="blogItem-link" to={`/historias`}>
+                atras
+              </Link>
+              {post.photo && (
+                <img src={PF + post.photo} alt="" className="singlePostImg" />
+              )}
+              {updateMode ? (
+                <input
+                  type="text"
+                  value={title}
+                  className="singlePostTitleInput"
+                  autoFocus
+                  onChange={(e) => setTitle(e.target.value)}
+                />
+              ) : (
+                <h1 className="singlePostTitle">
+                  {title}
+                  {/* {post.username === user?.name && (
                   <div className="singlePostEdit">
                     <i
                       className="singlePostIcon far fa-edit"
@@ -86,36 +94,37 @@ export const SinglePostHistoria = () => {
                     ></i>
                   </div>
                 )} */}
-              </h1>
-            )}
-            <div className="singlePostInfo">
-              <span className="singlePostAuthor">
-                Author:
-                <Link to={`/?user=${post.username}`} className="link">
-                  <b> {post.username}</b>
-                </Link>
-              </span>
-              <span className="singlePostDate">
-                {new Date(post.createdAt).toDateString()}
-              </span>
+                </h1>
+              )}
+              <div className="singlePostInfo">
+                <span className="singlePostAuthor">
+                  Author:
+                  <Link to={`/?user=${post.username}`} className="link">
+                    <b> {post.username}</b>
+                  </Link>
+                </span>
+                <span className="singlePostDate">
+                  {new Date(post.createdAt).toDateString()}
+                </span>
+              </div>
+              {updateMode ? (
+                <textarea
+                  className="singlePostDescInput"
+                  value={desc}
+                  onChange={(e) => setDesc(e.target.value)}
+                />
+              ) : (
+                <p className="singlePostDesc">{desc}</p>
+              )}
+              {updateMode && (
+                <button className="singlePostButton" onClick={handleUpdate}>
+                  Update
+                </button>
+              )}
             </div>
-            {updateMode ? (
-              <textarea
-                className="singlePostDescInput"
-                value={desc}
-                onChange={(e) => setDesc(e.target.value)}
-              />
-            ) : (
-              <p className="singlePostDesc">{desc}</p>
-            )}
-            {updateMode && (
-              <button className="singlePostButton" onClick={handleUpdate}>
-                Update
-              </button>
-            )}
           </div>
-        </div>
-      </Container>
-    </div>
+        </Container>
+      </Section>
+    </>
   );
 };

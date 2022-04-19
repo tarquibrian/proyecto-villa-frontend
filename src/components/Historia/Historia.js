@@ -8,7 +8,9 @@ import { Sidebar } from "../sidebar/Sidebar";
 
 export const Historia = () => {
   const [posts, setPosts] = useState([]);
+
   const { search } = useLocation();
+  
   useEffect(() => {
     const fetchPosts = async () => {
       const res = await axios.get(`${process.env.REACT_APP_API_URL}/posts` + search);

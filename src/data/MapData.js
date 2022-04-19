@@ -3,7 +3,7 @@ export const coords = [
     id: 1,
     name: "Mercado Villa Rivero",
     description: {
-      title: "PLAZA PRINCIPAL GUALBERTO VILLARROEL",
+      title: "Mercado Villa Rivero",
       city: "Villa Rivero",
       country: "Bolivia"
     },
@@ -29,7 +29,7 @@ export const coords = [
     id: 3,
     name: "Plazuela Francisco Del Rivero",
     description: {
-      title: "PLAZA PRINCIPAL GUALBERTO VILLARROEL",
+      title: "Plazuela Francisco Del Rivero",
       city: "Villa Rivero",
       country: "Bolivia"
     },
@@ -42,7 +42,7 @@ export const coords = [
     id: 4,
     name: "ALCALDIA MUNICIPAL",
     description: {
-      title: "PLAZA PRINCIPAL GUALBERTO VILLARROEL",
+      title: "ALCALDIA MUNICIPAL",
       city: "Villa Rivero",
       country: "Bolivia"
     },
@@ -55,7 +55,7 @@ export const coords = [
     id: 5,
     name: "Capilla Santa Cecilia",
     description: {
-      title: "PLAZA PRINCIPAL GUALBERTO VILLARROEL",
+      title: "Capilla Santa Cecilia",
       city: "Villa Rivero",
       country: "Bolivia"
     },
@@ -68,7 +68,7 @@ export const coords = [
     id: 6,
     name: "Capilla del Carmen",
     description: {
-      title: "PLAZA PRINCIPAL GUALBERTO VILLARROEL",
+      title: "Capilla del Carmen",
       city: "Villa Rivero",
       country: "Bolivia"
     },
@@ -81,7 +81,7 @@ export const coords = [
     id: 7,
     name: "Cerro Kili Kili",
     description: {
-      title: "PLAZA PRINCIPAL GUALBERTO VILLARROEL",
+      title: "Cerro Kili Kili",
       city: "Villa Rivero",
       country: "Bolivia"
     },
@@ -94,7 +94,7 @@ export const coords = [
     id: 8,
     name: "Casa de Gualberto Villarroel",
     description: {
-      title: "PLAZA PRINCIPAL GUALBERTO VILLARROEL",
+      title: "Casa de Gualberto Villarroel",
       city: "Villa Rivero",
       country: "Bolivia"
     },

@@ -1,10 +1,10 @@
-import React from "react";
+ import React from "react";
 import { Link } from "react-router-dom";
 import { Sidebar } from "../sidebar/Sidebar";
 import "./post.css";
 
 export const HistoriaPost = ({ post }) => {
-  const PF = "http://localhost:4000/images/";
+  const PF = process.env.REACT_APP_IMG_URL + "/images/";
   return (
     <div>
       <div className="post">
@@ -26,5 +26,5 @@ export const HistoriaPost = ({ post }) => {
         <p className="postDesc">{post.desc}</p>
       </div>
     </div>
-  );
+  );  
 };

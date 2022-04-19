@@ -10,7 +10,7 @@ import {
   FeatureTitle,
 } from "../components/Features/FeaturesStyles";
 
-import Mapp from "../components/Map/Mapp"
+import Mapp from "../components/Map/Mapp";
 
 export const Sitios = () => {
   const { isLoaded } = useLoadScript({
@@ -19,13 +19,21 @@ export const Sitios = () => {
   return (
     <>
       <Navbar />
-      <Section smPadding="50px 10px" position="relative" inverse id="sitios">
-        <Container>
-            <FeatureTitle>LUGARES TURÍSTICOS</FeatureTitle>
+      
+      <Section
+        smPadding="50px 0px"
+        position="relative"
+        inverse
+        id="sitios"
+        margin="50px 0"
+      >
+        <Container inpading='0'>
+          {/* <Features /> */}
+          <FeatureTitle>LUGARES TURÍSTICOS</FeatureTitle>
           {isLoaded ? <Map /> : null}
         </Container>
       </Section>
-      <Features />
+      
       <Footer />
     </>
   );

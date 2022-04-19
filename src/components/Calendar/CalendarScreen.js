@@ -3,7 +3,8 @@ import { Calendar, momentLocalizer } from "react-big-calendar";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import { ContainerCalendar } from "./CalendarScreenStyles";
-import pdfmake from "pdfmake";
+import pdfmake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
 
 import { messages } from "../../data/CalendarData";
 import { CalendarEvent } from "./CalendarEvent";
@@ -22,6 +23,7 @@ import { AddNewFab } from "../ButtonAdd/AddNewFab";
 import { DeleteEventFab } from "../ButtonAdd/DeleteEventFab";
 
 moment.locale("es");
+pdfmake.vfs = pdfFonts.pdfMake.vfs;
 
 const localizer = momentLocalizer(moment);
 
@@ -71,14 +73,60 @@ export const CalendarScreen = () => {
   };
   const docDefinition = {
     content: [
-      'This paragraph fills full width, as there are no columns. Next paragraph however consists of three columns',
-    ]
+      "This paragraph fills full width, as there are no columns. Next paragraph however consists of three columns",
+    ],
+  };
+  var dd = {
+    content: [
+      { text: "Tables", style: "header" },
+      "Official documentation is in progress, this document is just a glimpse of what is possible with pdfmake and its layout engine.",
+      {
+        text: "A simple table (no headers, no width specified, no spans, no styling)",
+        style: "subheader",
+      },
+      "The following table has nothing more than a body array",
+      {
+        style: "tableExample",
+        table: {
+          body: [
+            ["Column 1", "Column 2", "Column 3"],
+            ["One value goes here", "Another one here", "OK?"],
+          ],
+        },
+      },
+    ],
+    styles: {
+      header: {
+        fontSize: 18,
+        bold: true,
+        margin: [0, 0, 0, 10],
+      },
+      subheader: {
+        fontSize: 16,
+        bold: true,
+        margin: [0, 10, 0, 5],
+      },
+      tableExample: {
+        margin: [0, 5, 0, 15],
+      },
+      tableHeader: {
+        bold: true,
+        fontSize: 13,
+        color: "black",
+      },
+    },
+    defaultStyle: {
+      // alignment: 'justify'
+    },
   };
   const generarPDF = () => {
-    pdfmake.createPdf(docDefinition).download();
+    const pdf = pdfmake.createPdf(dd);
+    pdf.open();
   };
+
   return (
     <ContainerCalendar className="calendar-screen">
+      <button onClick={generarPDF}>GENERAR PDF</button>
       <Calendar
         localizer={localizer}
         events={events}
@@ -101,7 +149,6 @@ export const CalendarScreen = () => {
 
       {activeEvent && <DeleteEventFab />}
 
-      <button onClick={generarPDF}>GENERAR PDF</button>
       <CalendarModal />
     </ContainerCalendar>
   );

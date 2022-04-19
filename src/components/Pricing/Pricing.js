@@ -20,51 +20,51 @@ import { HistoriaHome } from "../Historia/HistoriaHome";
 
 function Pricing() {
   return (
-    <>
-      <HistoriaHome />
-    </>
-    // <IconContext.Provider value={{ color: "#a9b3c1", size: "1rem" }}>
-    //   <PricingSection id="pricing">
-    //     <PricingCardPlan>
-    //       <FeatureTitle>
-    //         "Cuna de Hombres Célebres y Pueblo de Grandes Tradiciones".
-    //       </FeatureTitle>
+    // <>
+    //   <HistoriaHome />
+    // </>
+    <IconContext.Provider value={{ color: "#a9b3c1", size: "1rem" }}>
+      <PricingSection id="pricing">
+        <PricingCardPlan>
+          <FeatureTitle>
+            "Cuna de Hombres Célebres y Pueblo de Grandes Tradiciones".
+          </FeatureTitle>
 
-    //       <TextWrapper
-    //         mb="1.5rem"
-    //         mt="1rem"
-    //         weight="600"
-    //         size="1.1rem"
-    //         color="black"
-    //         align="center"
-    //       >
-    //         Conoce Al Municipio y Sus Grandes Personajes
-    //       </TextWrapper>
+          <TextWrapper
+            mb="1.5rem"
+            mt="1rem"
+            weight="600"
+            size="1.1rem"
+            color="black"
+            align="center"
+          >
+            Conoce Al Municipio y Sus Grandes Personajes
+          </TextWrapper>
 
-    //       <HistoriaHome />
+          <HistoriaHome />
 
-    //       {/* <PricingContainer>
-    // 				{pricingData.map((card, index) => (
-    // 					<PricingCard key={index}>
-    // 						<PricingCardInfo>
-    // 							<PricingCardPlan>{card.title}</PricingCardPlan>
-    // 							<PricingCardCost>{card.price}</PricingCardCost>
-    // 							<PricingCardText>{card.description}</PricingCardText>
-    // 							<PricingCardFeatures>
-    // 								{card.features.map((feature, index) => (
-    // 									<PricingCardFeature key={index}>
-    // 										{feature}
-    // 									</PricingCardFeature>
-    // 								))}
-    // 							</PricingCardFeatures>
-    // 							<Button>CONOCER MÁS</Button>
-    // 						</PricingCardInfo>
-    // 					</PricingCard>
-    // 				))}
-    // 			</PricingContainer> */}
-    //     </PricingCardPlan>
-    //   </PricingSection>
-    // </IconContext.Provider>
+          <PricingContainer>
+    				{pricingData.map((card, index) => (
+    					<PricingCard key={index}>
+    						<PricingCardInfo>
+    							<PricingCardPlan>{card.title}</PricingCardPlan>
+    							<PricingCardCost>{card.price}</PricingCardCost>
+    							<PricingCardText>{card.description}</PricingCardText>
+    							<PricingCardFeatures>
+    								{card.features.map((feature, index) => (
+    									<PricingCardFeature key={index}>
+    										{feature}
+    									</PricingCardFeature>
+    								))}
+    							</PricingCardFeatures>
+    							<Button>CONOCER MÁS</Button>
+    						</PricingCardInfo>
+    					</PricingCard>
+    				))}
+    			</PricingContainer>
+        </PricingCardPlan>
+      </PricingSection>
+    </IconContext.Provider>
   );
 }
 export default Pricing;

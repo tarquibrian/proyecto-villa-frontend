@@ -4,6 +4,7 @@ import "./style.css";
 import moment from "moment";
 import DateTimePicker from "react-datetime-picker";
 import Modal from "react-modal";
+import { coords } from "../../data/MapData";
 import Swal from "sweetalert2";
 import "./style.css";
 import { uiCloseModal } from "../../actions/ui";
@@ -14,6 +15,9 @@ import {
   eventStartUpdate,
   eventUpdated,
 } from "../../actions/events";
+import {useLoadScript} from "@react-google-maps/api"
+import { Map } from "../Map/Map"
+import { MapPlace } from "../Map/MapPlace";
 
 const customStyles = {
   content: {
@@ -35,9 +39,13 @@ const initEvent = {
   notes: "",
   start: now.toDate(),
   end: nowone.toDate(),
+  place: "",
 };
 
 export const CalendarModal = () => {
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: "AIzaSyAKMws4QJbXE3xtlmJRBpJwfk1BUCUMEhg", // Add your API key
+  });
   const { modalOpen } = useSelector((state) => state.ui);
   const { activeEvent } = useSelector((state) => state.calendar);
   const { uid } = useSelector((state) => state.auth);
@@ -49,7 +57,7 @@ export const CalendarModal = () => {
 
   const [formValues, setFormValues] = useState(initEvent);
 
-  const { notes, title, start, end } = formValues;
+  const { notes, title, start, end, place } = formValues;
 
   useEffect(() => {
     if (activeEvent) {
@@ -148,7 +156,6 @@ export const CalendarModal = () => {
 
         <hr />
         <div className="form-group">
-          <label>Titulo y descripción</label>
           <input
             type="text"
             className={`form-control ${!titleValid && "is-invalid"}`}
@@ -159,9 +166,6 @@ export const CalendarModal = () => {
             onChange={handleInputChange}
             disabled={uid ? false : true}
           />
-          <small id="emailHelp" className="form-text text-muted">
-            Una descripción corta
-          </small>
         </div>
 
         <div className="form-group">
@@ -175,16 +179,37 @@ export const CalendarModal = () => {
             onChange={handleInputChange}
             disabled={uid ? false : true}
           ></textarea>
-          <small id="emailHelp" className="form-text text-muted">
-            Información adicional
-          </small>
         </div>
+
+        <div className="form-group">
+          <select
+            name="place"
+            class="form-select"
+            value={place}
+            onChange={handleInputChange}
+            disabled={uid ? false : true}
+          >
+            {coords.map((item) => (
+              <option selected key={item.id} value={item.id}>
+                {item.name}
+              </option>
+            ))}
+          </select>
+        </div>
+
         {uid !== undefined && (
           <button type="submit" className="btn btn-outline-primary btn-block">
             <i className="far fa-save"></i>
             <span> Guardar</span>
           </button>
         )}
+        
+        {uid === undefined && (
+          <div>
+            {isLoaded ? <MapPlace place={place} /> : null}
+          </div>
+        )}
+
       </form>
     </Modal>
   );

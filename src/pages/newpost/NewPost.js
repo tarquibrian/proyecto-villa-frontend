@@ -31,7 +31,7 @@ export const NewPost = () => {
     }
     try {
       const res = await axios.post(`${process.env.REACT_APP_API_URL}/posts`, newPost);
-      window.location.replace("http://localhost:3000/#/post/" + res.data._id);
+      window.location.replace(`${process.env.REACT_APP_WINDOW_URL}/#/post/` + res.data._id);
     } catch (err) {}
   };
 

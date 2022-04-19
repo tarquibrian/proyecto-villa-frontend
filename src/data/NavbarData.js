@@ -5,11 +5,11 @@ export const data = [
 		id: 'about',
 	},
 	{
-		to: '/pricing',
+		to: '/historias',
 		text: 'Historias',
 	},
 	{
-		to: '/signup',
+		to: '/eventos',
 		text: 'Eventos',
 	},
 	{

@@ -20,7 +20,7 @@ import { Link } from "react-router-dom";
 export const ContentPost = (p) => {
   const initial = { opacity: 0, y: 30 };
   const animation = useAnimation();
-  const PF = "http://localhost:4000/images/";
+  const PF = process.env.REACT_APP_IMG_URL + "/images/";
   const { ref, inView } = useInView({ threshold: 0.2 });
   const [bool, setBool] = useState(p.valor);
   useEffect(() => {
@@ -41,7 +41,7 @@ export const ContentPost = (p) => {
   };
   return (
     <div>
-      <Section inverse={bool ? true : false} ref={ref}>
+      <Section inverse={bool ? true : false} ref={ref}  >
         <Container>
           <ContentRow reverse={true}>
             <ContentColumn>
@@ -55,7 +55,7 @@ export const ContentPost = (p) => {
                 </TopLine>
                 <Heading
                   initial={initial}
-                  transition={{ delay: 0.5, duration: 0.6 }}
+                  transition={{ delay: 0.4, duration: 0.6 }}
                   animate={animation}
                   inverse={true}
                 >
@@ -63,7 +63,7 @@ export const ContentPost = (p) => {
                 </Heading>
                 <Subtitle
                   initial={initial}
-                  transition={{ delay: 0.7, duration: 0.6 }}
+                  transition={{ delay: 0.6, duration: 0.6 }}
                   animate={animation}
                   inverse={true}
                 >
@@ -72,7 +72,7 @@ export const ContentPost = (p) => {
                 <Link to={`/postHome/${p.posts._id}`}>
                   <ContentButton
                     initial={initial}
-                    transition={{ delay: 1, duration: 0.6 }}
+                    transition={{ delay: 0.8, duration: 0.6 }}
                     animate={animation}
                     inverse={true}
                     primary={true}

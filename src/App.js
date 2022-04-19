@@ -19,6 +19,8 @@ import { Single } from "./pages/single/Single";
 import { NewPost } from "./pages/newpost/NewPost";
 import { HistoriaHome } from './components/Historia/HistoriaHome'
 import { SingleHistoria } from "./pages/single/SingleHistoria";
+import { Historias } from "./pages/Historias";
+import { Eventos } from "./pages/Eventos";
 
 function App() {
   console.log(process.env);
@@ -52,14 +54,14 @@ function App() {
         <PublicRoute exact path="/" component={Home} isAuthenticated={!!uid} />
         <PublicRoute
           exact
-          path="/signup"
-          component={SignUp}
+          path="/eventos"
+          component={Eventos}
           isAuthenticated={!!uid}
         />
         <PublicRoute
           exact
-          path="/pricing"
-          component={Pricing}
+          path="/historias"
+          component={Historias}
           isAuthenticated={!!uid}
         />
         <PublicRoute

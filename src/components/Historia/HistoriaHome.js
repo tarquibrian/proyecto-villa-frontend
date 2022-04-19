@@ -5,6 +5,7 @@ import { useLocation } from "react-router";
 import axios from "axios";
 import { Sidebar } from "../sidebar/Sidebar";
 import { ContentPost } from "../Content/ContentPost";
+import Carousel from "../Carousel/Carousel";
 
 export const HistoriaHome = () => {
   const [posts, setPosts] = useState([]);
@@ -19,16 +20,10 @@ export const HistoriaHome = () => {
     };
     fetchPosts();
   }, [search]);
-  const cambio = () => {
-    if (bool === true) {
-      setBool(false);
-    } else {
-      setBool(true);
-    }
-  };
   return (
     <div>
       {/* <HistoriaHomePosts posts={posts} /> */}
+      <Carousel titulo="HISTORIAS"/>
       {posts.map((p) => (
         <div>
           <ContentPost posts={p} valor={bool} />

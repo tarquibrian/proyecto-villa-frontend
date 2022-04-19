@@ -71,9 +71,26 @@ export const CardButton = styled.button`
 	margin: auto 0 0 0;
 	border: none;
 	border-radius: 0 0 10px 10px;
+	text-transform: uppercase;
+	overflow: hidden;
+	outline: none;
+	text-decoration: none;
 
 	&:hover {
 		background-color: #112f4a;
 		transition: background-color 0.2s ease-in;
 	}
+`;
+
+export const PostDesc = styled.p`
+  text-align: justify;
+  /* font-size: 1.4rem; */
+  color: #444;
+  line-height: 26px;
+  margin-top: 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 `;

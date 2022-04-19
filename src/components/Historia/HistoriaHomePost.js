@@ -4,7 +4,7 @@ import { Sidebar } from "../sidebar/Sidebar";
 import "./post.css";
 
 export const HistoriaHomePost = ({ post }) => {
-  const PF = "http://localhost:4000/images/";
+  const PF = process.env.REACT_APP_IMG_URL + "/images/";
   return (
     <div>
       <div className="post">
