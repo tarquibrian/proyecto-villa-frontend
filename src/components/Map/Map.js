@@ -1,3 +1,9 @@
+import ReactDOM from "react-dom";
+import Modal from "react-modal";
+import { useSelector, useDispatch } from "react-redux";
+import { uiCloseModal } from "../../actions/ui";
+import "./style.css";
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 // import {
@@ -19,11 +25,32 @@ import { useLocation } from "react-router-dom";
 import { AddNewSite } from "../ButtonAdd/AddNewSite";
 import { MapModal } from "./MapModal";
 
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+  },
+};
+const initSite = {
+  title: "",
+  description: "",
+  city: "Villa Rivero",
+  country: "Bolivia",
+  lat: "",
+  lng: "",
+};
+
+Modal.setAppElement("#root");
 const initResponse = {
   response: null,
 };
 
 export const Map = ({ lugares }) => {
+  const { uid } = useSelector((state) => state.auth);
   const [positionValue, setPositionValue] = useState({
     latitude: 0,
     longitude: 0,
@@ -45,8 +72,7 @@ export const Map = ({ lugares }) => {
   useEffect(() => {
     //handleOnLoad()
     fetchSitios();
-    console.log("lugares", lugares);
-    console.log(sitios);
+    console.log("uid", uid);
   }, []);
 
   const handleActiveMarker = (marker) => {
@@ -70,7 +96,7 @@ export const Map = ({ lugares }) => {
       if (response.status === "OK") {
         setResponseValue(response);
       } else {
-        console.log("response: ", response);
+        // console.log("response: ", response);
       }
     }
   };
@@ -84,8 +110,9 @@ export const Map = ({ lugares }) => {
   const handleDelete = async (id) => {
     try {
       await axios.delete(`${process.env.REACT_APP_API_URL}/sitios/${id}`);
+      fetchSitios();
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   };
 
@@ -102,7 +129,37 @@ export const Map = ({ lugares }) => {
         longitude: destination.lng,
       });
     });
-    console.log(positionValue, destinationValue);
+    // console.log(positionValue, destinationValue);
+  };
+
+  const { modalOpen } = useSelector((state) => state.ui);
+  const [titleValid, setTitleValid] = useState(true);
+  const [formValues, setFormValues] = useState(initSite);
+  const { title, description, city, country, lat, lng } = formValues;
+  const dispatch = useDispatch();
+  const closeModal = () => {
+    dispatch(uiCloseModal());
+    setFormValues(initSite);
+    fetchSitios();
+  };
+  const handleInputChange = ({ target }) => {
+    setFormValues({
+      ...formValues,
+      [target.name]: target.value,
+    });
+  };
+  const handleSubmitForm = async (e) => {
+    e.preventDefault();
+
+    if (title.trim().length < 2) {
+      return setTitleValid(false);
+    }
+
+    setTitleValid(true);
+    console.log(formValues);
+    await axios.post(`${process.env.REACT_APP_API_URL}/sitios`, formValues);
+    closeModal();
+    fetchSitios();
   };
 
   return (
@@ -111,10 +168,7 @@ export const Map = ({ lugares }) => {
       <div>
         <GoogleMap
           onLoad={handleOnLoad}
-          onClick={(e) => {
-            console.log(e.latLng.lat());
-            setActiveMarker(null);
-          }}
+          onClick={() => setActiveMarker(null)}
           mapContainerStyle={{ width: "100%", height: "80vh" }}
         >
           {sitios.map(
@@ -149,13 +203,15 @@ export const Map = ({ lugares }) => {
                       >
                         GENERAR RUTA
                       </button>
-                      <button
-                        type="button"
-                        className="btn btn-danger"
-                        onClick={() => handleDelete(_id)}
-                      >
-                        ELIMINAR SITIO
-                      </button>
+                      {uid !== undefined && (
+                        <button
+                          type="button"
+                          className="btn btn-danger"
+                          onClick={() => handleDelete(_id)}
+                        >
+                          ELIMINAR SITIO
+                        </button>
+                      )}
                     </div>
                   </InfoWindow>
                 ) : null}
@@ -187,8 +243,101 @@ export const Map = ({ lugares }) => {
             />
           )}
           {/* <DirectionsRenderer directions={direct} /> */}
-          <AddNewSite />
-          <MapModal />
+          {uid !== undefined && <AddNewSite />}
+
+          {/* <MapModal /> */}
+          <Modal
+            isOpen={modalOpen}
+            onRequestClose={closeModal}
+            style={customStyles}
+            className="modal"
+            overlayClassName="modal-fondo"
+            contentLabel="Example Modal"
+          >
+            <h2> Detalles de Sitio </h2>
+            <form className="container" onSubmit={handleSubmitForm}>
+              <hr />
+              <div className="form-group">
+                <input
+                  type="text"
+                  className={`form-control ${!titleValid && "is-invalid"}`}
+                  placeholder="Título del evento"
+                  name="title"
+                  autoComplete="off"
+                  value={title}
+                  onChange={handleInputChange}
+                />
+              </div>
+
+              <div className="form-group">
+                <textarea
+                  type="text"
+                  className="form-control"
+                  placeholder="Descripcion"
+                  rows="5"
+                  name="description"
+                  value={description}
+                  onChange={handleInputChange}
+                ></textarea>
+              </div>
+
+              <div className="form-group">
+                <input
+                  type="text"
+                  className={`form-control ${!titleValid && "is-invalid"}`}
+                  placeholder="city"
+                  name="city"
+                  autoComplete="off"
+                  value={city}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="form-group">
+                <input
+                  type="text"
+                  className={`form-control ${!titleValid && "is-invalid"}`}
+                  placeholder="country"
+                  name="country"
+                  autoComplete="off"
+                  value={country}
+                  onChange={handleInputChange}
+                />
+              </div>
+
+              <div className="form-group">
+                <input
+                  type="text"
+                  className={`form-control ${!titleValid && "is-invalid"}`}
+                  placeholder="lat"
+                  name="lat"
+                  autoComplete="off"
+                  value={lat}
+                  onChange={handleInputChange}
+                />
+              </div>
+
+              <div className="form-group">
+                <input
+                  type="text"
+                  className={`form-control ${!titleValid && "is-invalid"}`}
+                  placeholder="lng"
+                  name="lng"
+                  autoComplete="off"
+                  value={lng}
+                  onChange={handleInputChange}
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="btn btn-outline-primary btn-block"
+              >
+                <i className="far fa-save"></i>
+                <span> Guardar</span>
+              </button>
+            </form>
+            {/* <button onClick={closeModal}>close</button> */}
+          </Modal>
         </GoogleMap>
       </div>
     </>

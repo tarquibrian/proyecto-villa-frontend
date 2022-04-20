@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // import {
 //   withScriptjs,
 //   withGoogleMap,
@@ -14,11 +14,13 @@ import {
   DirectionsService,
 } from "@react-google-maps/api";
 import { coords } from "../../data/MapData";
+import axios from "axios";
 
 const initResponse = {
   response: null,
 };
-export const MapPlace = ( {place}) => {
+export const MapPlace = ({ place }) => {
+  const [sitios, setSitios] = useState([]);
   const [positionValue, setPositionValue] = useState({
     latitude: 0,
     longitude: 0,
@@ -31,6 +33,15 @@ export const MapPlace = ( {place}) => {
   const [responseValue, setResponseValue] = useState(initResponse);
   const [activeMarker, setActiveMarker] = useState(null);
 
+  useEffect(() => {
+    getSitios();
+  }, []);
+
+  const getSitios = async () => {
+    const res = await axios.get(`${process.env.REACT_APP_API_URL}/sitios`);
+    setSitios(res.data);
+    console.log("sitios", sitios);
+  };
   const handleActiveMarker = (marker) => {
     if (marker === activeMarker) {
       return;
@@ -78,20 +89,20 @@ export const MapPlace = ( {place}) => {
         onClick={() => setActiveMarker(null)}
         mapContainerStyle={{ width: "100%", height: "80vh" }}
       >
-        {coords.map(
-          ({ id, name, position, description }) =>
-            id === Number(place) && (
+        {sitios.map(
+          ({ _id, title, lat,lng, description, city, country }) =>
+            _id === place && (
               <Marker
-                key={id}
-                position={position}
-                onClick={() => handleActiveMarker(id)}
+                key={_id}
+                position={{lat,lng}}
+                onClick={() => handleActiveMarker(_id)}
                 icon={{
                   url: "https://cdn-icons-png.flaticon.com/512/4668/4668396.png",
                   anchor: new window.google.maps.Point(17, 46),
                   scaledSize: new window.google.maps.Size(80, 80),
                 }}
               >
-                {activeMarker === id ? (
+                {activeMarker === _id ? (
                   <InfoWindow onCloseClick={() => setActiveMarker(null)}>
                     <div>
                       <img
@@ -100,13 +111,14 @@ export const MapPlace = ( {place}) => {
                         width="150"
                         height="150"
                       />
-                      <h5>{description.title}</h5>
-                      <h5>{description.city}</h5>
-                      <h5>{description.country}</h5>
+                      <h5>{title}</h5>
+                      <h5>{description}</h5>
+                      <h5>{city}</h5>
+                      <h5>{country}</h5>
                       <button
                         type="button"
                         className="btn btn-primary"
-                        onClick={() => capturePosition(position)}
+                        onClick={() => capturePosition({lat,lng})}
                       >
                         IR A ESTE LUGAR
                       </button>

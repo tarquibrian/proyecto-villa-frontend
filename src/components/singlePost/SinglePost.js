@@ -21,7 +21,9 @@ export const SinglePost = () => {
 
   useEffect(() => {
     const getPost = async () => {
-      const res = await axios.get(`${process.env.REACT_APP_API_URL}/posts/` + path);
+      const res = await axios.get(
+        `${process.env.REACT_APP_API_URL}/posts/` + path
+      );
       setPost(res.data);
       setTitle(res.data.title);
       setDesc(res.data.desc);
@@ -52,11 +54,11 @@ export const SinglePost = () => {
   return (
     <Container>
       {/* <Sidebar /> */}
+      <Link className="blogItem-link btn btn-secondary" to={`/admin-panel`}>
+        Atras
+      </Link>
       <div className="singlePost">
         <div className="singlePostWrapper">
-          <Link className="blogItem-link" to={`/admin-panel`}>
-            atras
-          </Link>
           {post.photo && (
             <img src={PF + post.photo} alt="" className="singlePostImg" />
           )}
@@ -89,7 +91,7 @@ export const SinglePost = () => {
             <span className="singlePostAuthor">
               Autor:
               {/* <Link to={`/?user=${post.username}`} className="link"> */}
-                <b> {post.username}</b>
+              <b> {post.username}</b>
               {/* </Link> */}
             </span>
             <span className="singlePostDate">

@@ -30,53 +30,61 @@ export const NewPost = () => {
       } catch (err) {}
     }
     try {
-      const res = await axios.post(`${process.env.REACT_APP_API_URL}/posts`, newPost);
-      window.location.replace(`${process.env.REACT_APP_WINDOW_URL}/#/post/` + res.data._id);
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_URL}/posts`,
+        newPost
+      );
+      window.location.replace(
+        `${process.env.REACT_APP_WINDOW_URL}/#/post/` + res.data._id
+      );
     } catch (err) {}
   };
 
   return (
     <div>
       <NavbarAdmin />
-      <Link className="blogItem-link" to={`/admin-panel`}>
-        atras
-      </Link>
-      <div className="write">
-        {file && (
-          <img className="writeImg" src={URL.createObjectURL(file)} alt="" />
-        )}
-        <form className="writeForm" onSubmit={handleSubmit}>
-          <div className="writeFormGroup">
-            <label htmlFor="fileInput">
-              <i className="writeIcon fas fa-plus"></i>
-            </label>
-            <input
-              type="file"
-              id="fileInput"
-              style={{ display: "none" }}
-              onChange={(e) => setFile(e.target.files[0])}
-            />
-            <input
-              type="text"
-              placeholder="Titulo"
-              className="writeInput"
-              autoFocus={true}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-          </div>
-          <div className="writeFormGroup">
-            <textarea
-              placeholder="Ingrese texto..."
-              type="text"
-              className="writeInput writeText"
-              onChange={(e) => setDesc(e.target.value)}
-            ></textarea>
-          </div>
-          <button className="writeSubmit" type="submit">
-            Publicar
-          </button>
-        </form>
+      <div className="container">
+        <Link className="blogItem-link btn btn-secondary" to={`/admin-panel`}>
+          Atras
+        </Link>
+        <div className="write">
+          {file && (
+            <img className="writeImg" src={URL.createObjectURL(file)} alt="" />
+          )}
+          <form className="writeForm" onSubmit={handleSubmit}>
+            <div className="writeFormGroup">
+              <label htmlFor="fileInput">
+                <i className="writeIcon fas fa-plus"></i>
+              </label>
+              <input
+                type="file"
+                id="fileInput"
+                style={{ display: "none" }}
+                onChange={(e) => setFile(e.target.files[0])}
+              />
+              <input
+                type="text"
+                placeholder="Titulo"
+                className="writeInput"
+                autoFocus={true}
+                onChange={(e) => setTitle(e.target.value)}
+              />
+            </div>
+            <div className="writeFormGroup">
+              <textarea
+                placeholder="Ingrese texto..."
+                type="text"
+                className="writeInput writeText"
+                onChange={(e) => setDesc(e.target.value)}
+              ></textarea>
+            </div>
+            <button className="writeSubmit" type="submit">
+              Publicar
+            </button>
+          </form>
+        </div>
       </div>
+
       <Sidebar />
     </div>
   );

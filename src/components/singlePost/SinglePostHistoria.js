@@ -8,7 +8,13 @@ import "./singlePost.css";
 import { Sidebar } from "../sidebar/Sidebar";
 // import { Container } from "../Historia/HistoriaStyle";
 import Navbar from "../Navbar/Navbar";
-import { Container, Section, Row, Heading, TextWrapper } from "../../globalStyles";
+import {
+  Container,
+  Section,
+  Row,
+  Heading,
+  TextWrapper,
+} from "../../globalStyles";
 
 export const SinglePostHistoria = () => {
   const location = useLocation();
@@ -56,18 +62,18 @@ export const SinglePostHistoria = () => {
     <>
       <Section smPadding="50px 0px" inverse id="about" margin="50px 0 0 0">
         <Navbar />
+
         <Container>
           {/* <Sidebar /> */}
+<Link className="blogItem-link btn btn-secondary" to={`/historias`}>
+            Atras
+          </Link>
           <Row>
-            <Heading inverse>
-              {post.title}
-            </Heading>
+            <Heading inverse>{post.title}</Heading>
           </Row>
+          
           <div className="singlePost">
             <div className="singlePostWrapper">
-              <Link className="blogItem-link" to={`/historias`}>
-                atras
-              </Link>
               {post.photo && (
                 <img src={PF + post.photo} alt="" className="singlePostImg" />
               )}

@@ -27,16 +27,16 @@ export const footerSocialData = [
 ];
 
 export const footerData = [
-	{
-		title: 'enlace1',
-		links: ['enlace1', 'enlace1', 'enlace1', 'enlace1'],
-	},
+	// {
+	// 	title: 'enlace1',
+	// 	links: ['enlace1', 'enlace1', 'enlace1', 'enlace1'],
+	// },
 	{
 		title: 'Sistema',
-		links: ['Login', 'enlace1', 'enlace', 'enlace'],
+		links: ['Login'],
 	},
-	{
-		title: 'enlace',
-		links: ['enlace', 'enlace', 'enlace', 'enlace'],
-	},
+	// {
+	// 	title: 'enlace',
+	// 	links: ['enlace', 'enlace', 'enlace', 'enlace'],
+	// },
 ];

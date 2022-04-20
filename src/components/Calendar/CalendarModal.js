@@ -15,9 +15,10 @@ import {
   eventStartUpdate,
   eventUpdated,
 } from "../../actions/events";
-import {useLoadScript} from "@react-google-maps/api"
-import { Map } from "../Map/Map"
+import { useLoadScript } from "@react-google-maps/api";
+import { Map } from "../Map/Map";
 import { MapPlace } from "../Map/MapPlace";
+import axios from "axios";
 
 const customStyles = {
   content: {
@@ -50,7 +51,7 @@ export const CalendarModal = () => {
   const { activeEvent } = useSelector((state) => state.calendar);
   const { uid } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-
+  const [sitios, setSitios] = useState([]);
   const [dateStart, setDateStart] = useState(now.toDate());
   const [dateEnd, setDateEnd] = useState(nowone.toDate());
   const [titleValid, setTitleValid] = useState(true);
@@ -60,6 +61,7 @@ export const CalendarModal = () => {
   const { notes, title, start, end, place } = formValues;
 
   useEffect(() => {
+    getEvents();
     if (activeEvent) {
       setFormValues(activeEvent);
     } else {
@@ -72,6 +74,12 @@ export const CalendarModal = () => {
       ...formValues,
       [target.name]: target.value,
     });
+    console.log(formValues);
+  };
+  const getEvents = async () => {
+    const res = await axios.get(`${process.env.REACT_APP_API_URL}/sitios`);
+    setSitios(res.data);
+    console.log("sitios", sitios);
   };
 
   const closeModal = () => {
@@ -181,7 +189,7 @@ export const CalendarModal = () => {
           ></textarea>
         </div>
 
-        <div className="form-group">
+        {/* <div className="form-group">
           <select
             name="place"
             class="form-select"
@@ -195,6 +203,23 @@ export const CalendarModal = () => {
               </option>
             ))}
           </select>
+        </div> */}
+
+        <div className="form-group">
+          <select
+            name="place"
+            class="form-select"
+            value={place}
+            onChange={handleInputChange}
+            disabled={uid ? false : true}
+          >
+            <option selected>Seleccionar sitio</option>
+            {sitios.map((item) => (
+              <option key={item._id} value={item._id}>
+                {item.title}
+              </option>
+            ))}
+          </select>
         </div>
 
         {uid !== undefined && (
@@ -203,13 +228,10 @@ export const CalendarModal = () => {
             <span> Guardar</span>
           </button>
         )}
-        
-        {uid === undefined && (
-          <div>
-            {isLoaded ? <MapPlace place={place} /> : null}
-          </div>
-        )}
 
+        {uid === undefined && (
+          <div>{isLoaded ? <MapPlace place={place} /> : null}</div>
+        )}
       </form>
     </Modal>
   );

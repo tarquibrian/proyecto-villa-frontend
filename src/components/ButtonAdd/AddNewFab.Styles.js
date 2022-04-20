@@ -7,4 +7,5 @@ export const Fab = styled.button`
     padding: 15px 25px;
     position: fixed;
     right: 25px;
+    z-index: 9;
 `;

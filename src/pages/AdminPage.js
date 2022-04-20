@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { NavbarAdmin } from "../components/NavbarAdmin/NavbarAdmin";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
@@ -9,26 +9,25 @@ import { useLoadScript } from "@react-google-maps/api";
 import Form from "../components/Form/Form";
 import { FormHistorias } from "../components/FormHistorias/FormHistorias";
 import { Historia } from "../components/Historia/Historia";
-import axios from "axios"
+import axios from "axios";
 export const AdminPage = () => {
   const [sitios, setSitios] = useState([]);
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: "AIzaSyAKMws4QJbXE3xtlmJRBpJwfk1BUCUMEhg", // Add your API key
-  }) ;
+  });
 
   useEffect(() => {
     //handleOnLoad()
+
     fetchSitios();
-    console.log(sitios)
+    console.log(sitios);
   }, []);
-
+  
   const fetchSitios = async () => {
-    const res = await axios.get(
-      `${process.env.REACT_APP_API_URL}/sitios`
-    );
+    const res = await axios.get(`${process.env.REACT_APP_API_URL}/sitios`);
     setSitios(res.data);
+    // fetchSitios();
   };
-
   return (
     <div>
       <NavbarAdmin />
@@ -46,7 +45,7 @@ export const AdminPage = () => {
         </TabPanel>
         <TabPanel>
           {/* <SidebarMap /> */}
-          {isLoaded ? <Map directions lugares={sitios}/> : null}
+          {isLoaded ? <Map directions lugares={sitios} /> : null}
         </TabPanel>
       </Tabs>
     </div>

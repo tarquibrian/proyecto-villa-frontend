@@ -5,13 +5,12 @@ import moment from "moment";
 import { ContainerCalendar } from "./CalendarScreenStyles";
 import pdfmake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
-
+import axios from "axios";
 import { messages } from "../../data/CalendarData";
 import { CalendarEvent } from "./CalendarEvent";
 import { CalendarModal } from "./CalendarModal";
-
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { uiOpenModal } from "../../actions/ui";
-
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "moment/locale/es";
 import {
@@ -21,14 +20,32 @@ import {
 } from "../../actions/events";
 import { AddNewFab } from "../ButtonAdd/AddNewFab";
 import { DeleteEventFab } from "../ButtonAdd/DeleteEventFab";
+import { ReporteEventos } from "../Reports/ReporteEventos";
+import DateTimePicker from "react-datetime-picker";
 
 moment.locale("es");
-pdfmake.vfs = pdfFonts.pdfMake.vfs;
 
+const nows = moment().minutes(0).seconds(0).add(1, "hours");
+const nowone = nows.clone().add(1, "hours");
+
+pdfmake.vfs = pdfFonts.pdfMake.vfs;
+const initReport = {
+  start: nows.toDate(),
+  end: nowone.toDate(),
+};
 const localizer = momentLocalizer(moment);
 
 export const CalendarScreen = () => {
+  const [newdata, setNewData] = useState([]);
+
+  const [dateStart, setDateStart] = useState(nows.toDate());
+  const [dateEnd, setDateEnd] = useState(nowone.toDate());
+
+  const [formValues, setFormValues] = useState(initReport);
+
+  const { start, end } = formValues;
   const dispatch = useDispatch();
+  const [sitios, setSitios] = useState([]);
   const { events, activeEvent } = useSelector((state) => state.calendar);
   const { uid } = useSelector((state) => state.auth);
   console.log(uid);
@@ -38,8 +55,13 @@ export const CalendarScreen = () => {
 
   useEffect(() => {
     dispatch(eventStartLoading());
+    getEvents();
   }, [dispatch]);
 
+  const getEvents = async () => {
+    const res = await axios.get(`${process.env.REACT_APP_API_URL}/events`);
+    setSitios(res.data);
+  };
   const onDoubleClick = (e) => {
     // console.log(e);
     dispatch(uiOpenModal());
@@ -89,8 +111,8 @@ export const CalendarScreen = () => {
         style: "tableExample",
         table: {
           body: [
-            ["Column 1", "Column 2", "Column 3"],
-            ["One value goes here", "Another one here", "OK?"],
+            ["Evento", "Inicio", "Fin"],
+            ["sitios.evento[0].title", "Another one here", "OK?"],
           ],
         },
       },
@@ -120,36 +142,137 @@ export const CalendarScreen = () => {
     },
   };
   const generarPDF = () => {
-    const pdf = pdfmake.createPdf(dd);
-    pdf.open();
+    if (isTrue === true) setIsTrue(false);
+    if (isTrue === false) setIsTrue(true);
+    getEvents();
+    // console.log(sitios.eventos)
+    // const pdf = pdfmake.createPdf(dd);
+
+    // pdf.open();
   };
-
+  const handleStartDateChange = (e) => {
+    setDateStart(e);
+    setFormValues({
+      ...formValues,
+      start: e,
+    });
+  };
+  const handleEndDateChange = (e) => {
+    setDateEnd(e);
+    setFormValues({
+      ...formValues,
+      end: e,
+    });
+  };
+  const handleSubmitForm = async (e) => {
+    e.preventDefault();
+    const momentStart = moment(start).format();
+    const momentEnd = moment(end).format();
+    const res = await axios.put(`${process.env.REACT_APP_API_URL}/events`, {
+      start: momentStart,
+      end: momentEnd,
+    });
+    setNewData(res.data);
+    console.log(newdata);
+    // console.log(momentStart,momentEnd)
+    // // console.log(momentStart, momentEnd);
+    // // eventos.forEach(function (item, index) {
+    // //   let date = moment(item.start).format("YYYY-MM-DD");
+    // //   if (moment(date).isAfter(momentStart, momentEnd)) {
+    // //     console.log("datarow", item.start, index);
+    // //     reporte.push(item);
+    // //   }
+    // // });
+    // // console.log("reportesss", reporte);
+    // // console.log("eventossss", eventos)
+    // // eventos.map(
+    // //   function (m) {
+    // //     let date = moment(m.start).format("YYYY-MM-DD");
+    // //     if (moment(date).isAfter(momentStart, momentEnd)) {
+    // //       console.log("resultado", m);
+    // //       setNewData(newdata.push(m.start))
+    // //     }
+    // //     return console.log(m.start);
+    // //   }
+    // //   // console.log(m)
+    // // );
+    // // console.log("data",newdata)
+    // const pdf = pdfmake.createPdf(ddd);
+    // pdf.open();
+  };
+  const [isTrue, setIsTrue] = useState(false);
   return (
-    <ContainerCalendar className="calendar-screen">
+    <div>
       <button onClick={generarPDF}>GENERAR PDF</button>
-      <Calendar
-        localizer={localizer}
-        events={events}
-        startAccessor="start"
-        endAccessor="end"
-        messages={messages}
-        eventPropGetter={eventStyleGetter}
-        onDoubleClickEvent={onDoubleClick}
-        onSelectEvent={onSelectEvent}
-        onView={onViewChange}
-        onSelectSlot={onSelectSlot}
-        selectable={true}
-        view={lastView}
-        components={{
-          event: CalendarEvent,
-        }}
-      />
+      {isTrue ? (
+        <div>
+          <Tabs>
+            <TabList>
+              <Tab>REPORTES POR FECHAS</Tab>
+              {/* <Tab>REPORTES POR EVENTOS</Tab> */}
+              <Tab>REPORTES POR SITIOS</Tab>
+            </TabList>
+            <TabPanel>
+              {/* <h1>FECHAS</h1> */}
+              <div className="container mb-3">
+                <form className="" onSubmit={handleSubmitForm}>
+                  <div className="form-group">
+                    <label>Fecha inicio</label>
+                    <DateTimePicker
+                      onChange={handleStartDateChange}
+                      value={dateStart}
+                      className={"form-control"}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>Fecha final</label>
+                    <DateTimePicker
+                      onChange={handleEndDateChange}
+                      value={dateEnd}
+                      className={"form-control"}
+                    />
+                  </div>
+                  <button className="btn btn-secondary" type="submit">Buscar</button>
+                </form>
+                {newdata && newdata.length ? (
+                  <h1>se encontraron {newdata.length} resultados</h1>
+                ) : null}
+                <ReporteEventos className="form-group" eventos={newdata} />
+              </div>
+            </TabPanel>
+            {/* <TabPanel>EVENTOS</TabPanel> */}
+            <TabPanel>{/* <h1>SITIOS</h1> */}</TabPanel>
+          </Tabs>
+        </div>
+      ) : null}
+      <div>
+        <ContainerCalendar className="calendar-screen">
+        <Calendar
+          localizer={localizer}
+          events={events}
+          startAccessor="start"
+          endAccessor="end"
+          messages={messages}
+          eventPropGetter={eventStyleGetter}
+          onDoubleClickEvent={onDoubleClick}
+          onSelectEvent={onSelectEvent}
+          onView={onViewChange}
+          onSelectSlot={onSelectSlot}
+          selectable={true}
+          view={lastView}
+          components={{
+            event: CalendarEvent,
+          }}
+        />
 
-      <AddNewFab />
+        <AddNewFab />
 
-      {activeEvent && <DeleteEventFab />}
+        {activeEvent && <DeleteEventFab />}
 
-      <CalendarModal />
-    </ContainerCalendar>
+        <CalendarModal />
+      </ContainerCalendar>
+      </div>
+      
+    </div>
   );
 };
