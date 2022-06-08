@@ -48,15 +48,11 @@ registerRoute(
   new StaleWhileRevalidate({
     cacheName: "images",
     plugins: [
-      // Ensure that once this runtime cache reaches a maximum size the
-      // least-recently used images are removed.
       new ExpirationPlugin({ maxEntries: 50 }),
     ],
   })
 );
 
-// This allows the web app to trigger skipWaiting via
-// registration.waiting.postMessage({type: 'SKIP_WAITING'})
 self.addEventListener("message", (event) => {
   if (event.data && event.data.type === "SKIP_WAITING") {
     self.skipWaiting();
@@ -65,48 +61,60 @@ self.addEventListener("message", (event) => {
 
 // Any other custom service worker logic can go here.
 
-self.addEventListener( 'install', async( event ) => {
-
-  const cache = await caches.open('cache-1')
+self.addEventListener("install", async (event) => {
+  const cache = await caches.open("cache-1");
 
   await cache.addAll([
-    'https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css',
-    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css',
-    '/favicon.ico'
-  ])
+    "https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css",
+    "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css",
+    "/favicon.ico",
+  ]);
 });
 
 const apiOfflineFallbacks = [
   `${process.env.REACT_APP_API_URL}/auth/renew`,
   `${process.env.REACT_APP_API_URL}/panel-admin`,
-]
+];
 
-self.addEventListener( 'fetch', ( event ) => {
-  // console.log( event.request.url );
-  // if ( event.request.url !== 'http://localhost:4000/api/auth/renew' ) return;
-  if ( !apiOfflineFallbacks.includes( event.request.url ) ) return;
+self.addEventListener("fetch", (event) => {
 
-  const resp = fetch( event.request )
-      .then( response => {
+  if (!apiOfflineFallbacks.includes(event.request.url)) return;
 
-        if ( !response ) {
-          return caches.match( event.request )
-        }
-        
-        // Guardar en caché la respuesta
-        caches.open('cache-dynamic').then( cache => {
-          cache.put( event.request, response )
-        })
+  const resp = fetch(event.request)
+    .then((response) => {
+      if (!response) {
+        return caches.match(event.request);
+      }
 
-        
-        return response.clone();
-      })
-      .catch( err => {
-        console.log('offline response');
-        return caches.match( event.request )
-      })
+      // Guardar en caché la respuesta
+      caches.open("cache-dynamic").then((cache) => {
+        cache.put(event.request, response);
+      });
+
+      return response.clone();
+    })
+    .catch((err) => {
+      console.log("offline response");
+      return caches.match(event.request);
+    });
+
+  event.respondWith(resp);
+});
 
 
-    event.respondWith( resp );
+self.addEventListener("push", (e) => {
 
+  const data = JSON.parse(e.data.text());
+  console.log(data);
+  const title = data.titulo;
+  const options = {
+    body: data.cuerpo,
+    image:
+      "https://www.opinion.com.bo/media/opinion/images/2012/03/09/2012N47141.jpg",
+    badge: "https://www.opinion.com.bo/media/opinion/images/2012/03/09/2012N47141.jpg",
+    icon: "logo.png",
+    vibrate: [125,75,125,275,200,275,125,75,125,275,200,600,200,600],
+  };
+
+  e.waitUntil(self.registration.showNotification(title, options));
 });

@@ -135,3 +135,7 @@ export function unregister() {
       });
   }
 }
+
+export function getSubscription() {
+  
+}

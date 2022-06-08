@@ -14,6 +14,18 @@ const GlobalStyle = createGlobalStyle`
   padding: 0;
   font-family: 'Montserrat', sans-serif;
   }
+  body {
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #27ef9f;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #000d1a;
+      /* border-radius: 50px */
+    }
+  }
 `;
 
 export const Container = styled.div`
@@ -24,7 +36,7 @@ export const Container = styled.div`
   padding: 0 50px;
 
   @media screen and (max-width: 960px) {
-    padding: ${({ inpading }) => (inpading ? inpading : "0 30px")}; 
+    padding: ${({ inpading }) => (inpading ? inpading : "0 30px")};
   }
 `;
 export const MainHeading = styled.h1`
@@ -37,7 +49,7 @@ export const MainHeading = styled.h1`
 `;
 
 export const Heading = styled.h2`
-  font-size: clamp(1.3rem, 13vw, 3.1rem);
+  font-size: clamp(1.3rem, 10vw, 3rem);
   margin: ${({ margin }) => (margin ? margin : "")};
   margin-bottom: ${({ mb }) => (mb ? mb : "")};
   margin-top: ${({ mt }) => (mt ? mt : "")};
@@ -60,7 +72,7 @@ export const TextWrapper = styled.span`
 export const Section = styled.section`
   padding: ${({ padding }) => (padding ? padding : "80px 0")};
   margin: ${({ margin }) => (margin ? margin : "")};
-  background: ${({ inverse }) => (inverse ? "white" : "#071c2f")};
+  background: ${({ inverse }) => (inverse ? "white" : "rgb(215,235,235)")};
   position: ${({ position }) => (position ? position : "")};
   width: ${({ width }) => (width ? width : "auto")};
   min-width: ${({ minWidth }) => (minWidth ? minWidth : "auto")};

@@ -6,13 +6,6 @@ import "./style.css";
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-// import {
-//   withScriptjs,
-//   withGoogleMap,
-//   GoogleMap,
-//   Marker,
-//   InfoWindow
-// } from "react-google-maps";
 import {
   DirectionsRenderer,
   GoogleMap,
@@ -72,7 +65,6 @@ export const Map = ({ lugares }) => {
   useEffect(() => {
     //handleOnLoad()
     fetchSitios();
-    console.log("uid", uid);
   }, []);
 
   const handleActiveMarker = (marker) => {
@@ -115,6 +107,15 @@ export const Map = ({ lugares }) => {
       // console.log(err);
     }
   };
+
+  const captureClick = async (id) => {
+    try {
+      await axios.post(`${process.env.REACT_APP_API_URL}/sitios/contador`, {id: id});
+      //fetchSitios();
+    } catch (err) {
+      // console.log(err);
+    }
+  }
 
   const capturePosition = (destination) => {
     window.navigator.geolocation.getCurrentPosition((pos) => {
@@ -199,7 +200,7 @@ export const Map = ({ lugares }) => {
                       <button
                         type="button"
                         className="btn btn-primary"
-                        onClick={() => capturePosition({ lat, lng })}
+                        onClick={() => {capturePosition({ lat, lng }); captureClick(_id)}}
                       >
                         GENERAR RUTA
                       </button>

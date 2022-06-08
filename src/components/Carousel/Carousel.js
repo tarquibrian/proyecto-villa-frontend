@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import { IconContext } from "react-icons";
-import { data, sliderSettings } from "../../data/CarouselData";
+import { sliderSettings } from "../../data/CarouselData";
 import { useLocation } from "react-router";
 import axios from "axios";
 import {
@@ -18,15 +18,10 @@ import {
   CarouselImage,
   CardButton,
 } from "./CarouselStyles";
-import { FeatureTextWrapper, FeatureTitle } from "../Features/FeaturesStyles";
-import { CalendarScreen } from "../Calendar/CalendarScreen";
-import { CalendarScreenHome } from "../Calendar/CalendarScreenHome";
-import { PostDesc } from "./CarouselStyles";
 import { Link } from "react-router-dom";
 const Carousel = ({ titulo }) => {
   const [sliderRef, setSliderRef] = useState(null);
   const [posts, setPosts] = useState([]);
-  const [bool, setBool] = useState(true);
   const { search } = useLocation();
   const PF = process.env.REACT_APP_IMG_URL + "/images/";
 
@@ -47,12 +42,8 @@ const Carousel = ({ titulo }) => {
       position="relative"
       inverse
       id="about"
-      margin="50px 0 0 0"
+      margin="0 0 0 0"
     >
-      {/* <Container>
-          <FeatureTitle>CALENDARIO DE EVENTOS</FeatureTitle>
-        <CalendarScreenHome />
-      </Container> */}
       <Container>
         <Row justify="space-between" margin="1rem" wrap="wrap">
           <Heading width="auto" inverse>
@@ -73,9 +64,6 @@ const Carousel = ({ titulo }) => {
               <TextWrapper size="1.1rem" margin="0.4rem 0 0" weight="bold">
                 {el.title}
               </TextWrapper>
-              {/* <TextWrapper size="0.9rem" margin="0.7rem" color="#4f4f4f">
-                <PostDesc>{el.desc}</PostDesc>
-              </TextWrapper> */}
               <CardButton>
                 <Link to={`/postHome/${el._id}`}>
                   <CardButton>Conocer Mas</CardButton>

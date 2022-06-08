@@ -60,18 +60,18 @@ export const SinglePostHistoria = () => {
 
   return (
     <>
-      <Section smPadding="50px 0px" inverse id="about" margin="50px 0 0 0">
-        <Navbar />
+      <Section smPadding="50px 0px" inverse id="about" margin="0 0 0 0">
+        {/* <Navbar /> */}
 
         <Container>
           {/* <Sidebar /> */}
-<Link className="blogItem-link btn btn-secondary" to={`/historias`}>
+          <Link className="blogItem-link btn btn-secondary" to={`/historias`}>
             Atras
           </Link>
           <Row>
             <Heading inverse>{post.title}</Heading>
           </Row>
-          
+
           <div className="singlePost">
             <div className="singlePostWrapper">
               {post.photo && (

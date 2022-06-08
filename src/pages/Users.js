@@ -20,7 +20,6 @@ export const Users = () => {
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_API_URL}/users`).then((response) => {
       setUsers(response.data);
-      console.log(users);
     });
   }, []);
 
@@ -33,20 +32,19 @@ export const Users = () => {
         "error"
       );
     }
-    console.log("?");
     dispatch(startRegister(rEmail, rPassword1, rName));
-    
   };
-  
-  const loadUsers = async () => {
-    await axios.get(`${process.env.REACT_APP_API_URL}/users`).then((response) => {
-      setUsers(response.data);
-      console.log(users);
-    });
-  };
-  const deleteUser = (id) => {
-    // axios.delete(`${process.env.REACT_APP_API_URL}/users/${id}`);
 
+  const loadUsers = async () => {
+    await axios
+      .get(`${process.env.REACT_APP_API_URL}/users`)
+      .then((response) => {
+        setUsers(response.data);
+      });
+  };
+  const deleteUser = async (id) => {
+    await axios.delete(`${process.env.REACT_APP_API_URL}/usuarios/${id}`);
+    loadUsers();
   };
   return (
     <div>
@@ -112,10 +110,10 @@ export const Users = () => {
             <thead class="thead-dark">
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">Name</th>
-                <th scope="col">User Name</th>
-                <th scope="col">Email</th>
-                <th>Action</th>
+                <th scope="col">NOMBRE DE USUARIO</th>
+                <th scope="col">EMAIL</th>
+                <th scope="col">PASSWORD</th>
+                <th>ACCIONES</th>
               </tr>
             </thead>
             <tbody>
@@ -138,12 +136,9 @@ export const Users = () => {
                       >
                         Edit
                       </Link> */}
-                    <Link
-                      class="btn btn-danger"
-                      onClick={deleteUser(user._id)}
-                    >
+                    <button class="btn btn-danger" onClick={() => deleteUser(user._id)}>
                       Delete
-                    </Link>
+                    </button>
                   </td>
                 </tr>
               ))}

@@ -3,6 +3,17 @@
     opacity: 0;
 }
 
+.background {
+    background-color: lightblue;
+}
+
+.index {
+    z-index: 99;
+}
+
+.indexx {
+    z-index: 98;
+}
 .ReactModalPortal .ReactModal__Overlay {
     align-items: center;
     display: flex;
@@ -46,3 +57,4 @@
 .react-datetime-picker__wrapper {
     border: 0px solid gray !important;
 }
+

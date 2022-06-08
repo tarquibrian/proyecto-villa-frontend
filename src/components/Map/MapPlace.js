@@ -82,6 +82,14 @@ export const MapPlace = ({ place }) => {
     });
     // console.log(positionValue, destinationValue);
   };
+  const captureClick = async (id) => {
+    try {
+      await axios.post(`${process.env.REACT_APP_API_URL}/sitios/contador`, {id: id});
+      //fetchSitios();
+    } catch (err) {
+      // console.log(err);
+    }
+  }
   return (
     <div>
       <GoogleMap
@@ -118,7 +126,7 @@ export const MapPlace = ({ place }) => {
                       <button
                         type="button"
                         className="btn btn-primary"
-                        onClick={() => capturePosition({lat,lng})}
+                        onClick={() => {capturePosition({lat,lng}); captureClick(_id)}}
                       >
                         IR A ESTE LUGAR
                       </button>

@@ -7,7 +7,7 @@ import { HistoriaHome } from "../components/Historia/HistoriaHome";
 export const Historias = () => {
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       {/* <Pricing /> */}
       <HistoriaHome />
       <Footer />

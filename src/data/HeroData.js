@@ -1,15 +1,18 @@
+import ImageEventos from '../images/turismo.jpg'
+import ImageHistorias from '../images/turismo3.jpg'
+
 export const heroOne = {
 	reverse: true,
 	inverse: true,
 	topLine: {
-		text: 'Fundada el 12 de octubre 1915',
+		text: 'EVENTOS TRADICIONALES',
 	},
-	headline: "Cuna de Hombres Célebres y Pueblo de Grandes Tradiciones",
+	headline: "Villa Rivero Cuenta Con Más de 10 Ferias Por Temporada",
 	description: 'Villa Rivero es una localidad y municipio de Bolivia, ubicado en la provincia de Punata del departamento de Cochabamba.',
 	buttonLabel: 'Saber Más',
-	linkTo: '/historias',
+	linkTo: '/eventos',
 	imgStart: 'start',
-	img: './assets/villa.jfif',
+	img: ImageEventos,
 	start: 'true',
 };
 
@@ -17,15 +20,14 @@ export const heroTwo = {
 	reverse: false,
 	inverse: false,
 	topLine: {
-		text: 'Actividades Tradicionales',
+		text: 'BIOGRAFÍAS, CUENTOS E HITORIAS',
 	},
-	headline: 'Villa Rivero Cuenta Con Más de 10 Ferias Por Año',
+	headline: 'Biografías de Personajes Históricos y Tradiciones Costumbristas',
 	description: 'La parroquia San Isidro, el centro de residentes y  la Alcaldía de Villa Rivero veneran en julio a la milagrosa Virgen María del Carmen.',
 	buttonLabel: 'Ver Eventos',
-
-	linkTo: '/eventos',
+	linkTo: '/historias',
 	imgStart: 'start',
-	img: './assets/virgen-maria-del-carmen.jpg',
+	img: ImageHistorias,
 	start: 'true',
 };
 
@@ -33,7 +35,7 @@ export const heroThree = {
 	reverse: true,
 	inverse: true,
 	topLine: {
-		text: 'Lugares Turísticos',
+		text: 'LUGARES TUÍSTICOS',
 	},
 	headline: 'Casa Natal del Expresidente Gualberto Villarroel',
 	description:

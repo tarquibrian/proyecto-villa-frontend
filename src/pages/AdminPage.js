@@ -13,14 +13,13 @@ import axios from "axios";
 export const AdminPage = () => {
   const [sitios, setSitios] = useState([]);
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: "AIzaSyAKMws4QJbXE3xtlmJRBpJwfk1BUCUMEhg", // Add your API key
+    googleMapsApiKey: "AIzaSyAKMws4QJbXE3xtlmJRBpJwfk1BUCUMEhg ", // Add your API key
   });
 
   useEffect(() => {
     //handleOnLoad()
 
     fetchSitios();
-    console.log(sitios);
   }, []);
   
   const fetchSitios = async () => {

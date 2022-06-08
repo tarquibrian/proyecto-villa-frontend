@@ -37,12 +37,6 @@ const Features = () => {
               key={index}
             >
               <FeatureImageWrapper className={el.imgClass}>
-                {/* <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Plaza_de_Villa_Rivero.JPG"
-                  alt="plaza villa rivero"
-                  width="150"
-                  height="150"
-                /> */}
                 {el.icon}
               </FeatureImageWrapper>
               <FeatureName>{el.name}</FeatureName>

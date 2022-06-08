@@ -1,9 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import GlobalStyle from "./globalStyles";
+import Aos from "aos";
 import "../node_modules/bootstrap/dist/css/bootstrap.css";
-import { BrowserRouter as Router, Switch, HashRouter } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  HashRouter,
+  useLocation,
+} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-
 //Pages
 import Home from "./pages/Home";
 import SignUp from "./pages/SignupPage";
@@ -17,27 +22,42 @@ import { PrivateRoute } from "./routes/PrivateRoute";
 import { Users } from "./pages/Users";
 import { Single } from "./pages/single/Single";
 import { NewPost } from "./pages/newpost/NewPost";
-import { HistoriaHome } from './components/Historia/HistoriaHome'
+import { HistoriaHome } from "./components/Historia/HistoriaHome";
 import { SingleHistoria } from "./pages/single/SingleHistoria";
 import { Historias } from "./pages/Historias";
 import { Eventos } from "./pages/Eventos";
+import { Navbar } from "./components/Navbar";
+import { Dropdow } from "./components/Dropdow";
 
 function App() {
   console.log(process.env);
+  console.log("NOTIFICACION");
 
   const dispatch = useDispatch();
   const { checking, uid } = useSelector((state) => state.auth);
-
+  const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+  const toggle = () => {
+    setIsOpen(!isOpen);
+  };
   useEffect(() => {
     dispatch(startChecking());
+    Aos.init({});
   }, [dispatch]);
+
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
   if (checking) {
     return <h5>Espere por favor o revise su conexion a internet...</h5>;
   }
 
   return (
-    <HashRouter>
+    <>
       <GlobalStyle />
+      {uid === undefined && <Navbar toggle={toggle} />}
+      <Dropdow isOpen={isOpen} toggle={toggle} />
       <Switch>
         {/* <Route exact path="/">
             <Home />
@@ -109,7 +129,7 @@ function App() {
         </Route>
         <Route path="/admin-panel"></Route> */}
       </Switch>
-    </HashRouter>
+    </>
   );
 }
 

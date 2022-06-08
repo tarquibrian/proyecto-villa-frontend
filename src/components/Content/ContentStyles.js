@@ -16,8 +16,8 @@ export const ContentRow = styled.div`
 
 export const ContentColumn = styled(motion.div)`
   margin-bottom: 15px;
-  padding-right: 15px;
-  padding-left: 15px;
+  padding-right: ${({ padding_right }) => (padding_right ? padding_right : "15px")};
+  padding-left: ${({ padding_left }) => (padding_left ? padding_left : "15px")};
   flex: 1;
   z-index: 10;
   display: flex;
@@ -84,7 +84,7 @@ export const Heading = styled(motion.h2)`
   font-size: 3rem;
   line-height: 1.1;
   font-weight: 600;
-  color: ${({ inverse }) => (inverse ? "#0c4577" : "white")};
+  color: ${({ inverse }) => (inverse ? "#0c4577" : "#0c4577")};
 
   @media screen and (max-width: 768px) {
     text-align: center;
@@ -95,7 +95,7 @@ export const Subtitle = styled(motion.p)`
   max-width: 500px;
   margin-bottom: 35px;
   line-height: 24px;
-  color: ${({ inverse }) => (inverse ? "#6a6a6a" : "white")};
+  color: ${({ inverse }) => (inverse ? "#6a6a6a" : "#000")};
 `;
 export const PostDesc = styled.p`
   text-align: justify;
@@ -119,20 +119,20 @@ export const ContentButton = styled(motion.button)`
   text-transform: uppercase;
   cursor: pointer;
   background: none;
-  color: ${({ inverse }) => (inverse ? "#0c4577" : "white")};
+  color: ${({ inverse }) => (inverse ? "#0c4577" : "#0c4577")};
 
   border-radius: 4px;
   white-space: nowrap;
   padding: ${({ big }) => (big ? "12px 64px" : "10px 20px")};
   font-size: ${({ fontBig }) => (fontBig ? "20px" : "16px")};
   outline: none;
-  border: 2px solid ${({ inverse }) => (inverse ? "#0c4577" : "white")};
+  border: 2px solid ${({ inverse }) => (inverse ? "#0c4577" : "#0c4577")};
   cursor: pointer;
   position: relative;
   overflow: hidden;
 
   &:before {
-    background: ${({ inverse }) => (inverse ? "#0c4577" : "white")};
+    background: ${({ inverse }) => (inverse ? "#0c4577" : "#0c4577")};
     content: "";
     position: absolute;
     top: 50%;
@@ -150,6 +150,6 @@ export const ContentButton = styled(motion.button)`
   }
 
   &:hover {
-    color: ${({ inverse }) => (inverse ? "white" : "black")};
+    color: ${({ inverse }) => (inverse ? "white" : "white")};
   }
 `;

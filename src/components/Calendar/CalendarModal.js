@@ -74,7 +74,7 @@ export const CalendarModal = () => {
       ...formValues,
       [target.name]: target.value,
     });
-    console.log(formValues);
+  //console.log(formValues);
   };
   const getEvents = async () => {
     const res = await axios.get(`${process.env.REACT_APP_API_URL}/sitios`);
@@ -127,6 +127,16 @@ export const CalendarModal = () => {
     }
     setTitleValid(true);
     closeModal();
+    enviarNotificacion();
+  };
+
+  const enviarNotificacion = async () => {
+    await axios.post(`${process.env.REACT_APP_API_URL}/notification/push`, {
+      titulo: "EVENTO PROXIMO: " + formValues.title,
+      cuerpo: formValues.notes,
+      usuario: "tarqui",
+    });
+    //console.log("form", formValues);
   };
 
   return (

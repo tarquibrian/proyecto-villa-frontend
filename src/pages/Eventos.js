@@ -4,28 +4,42 @@ import Footer from "../components/Footer/Footer";
 import Carousel from "../components/Carousel/Carousel";
 import { CalendarScreenHome } from "../components/Calendar/CalendarScreenHome";
 import { Row, Heading, Section, TextWrapper, Container } from "../globalStyles";
+import { Gallery } from "../components/Gallery";
+import { GalleryData } from "../data/DataGallery";
 
 export const Eventos = () => {
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
+      <Section
+        smPadding="50px 10px"
+        position="relative"
+        inverse="false"
+        id="eventos"
+        margin="0 0 0 0"
+      >
+        <Container>
+          {/* <Row>
+            <Heading inverse>EVENTOS</Heading>
+          </Row> */}
+          <Gallery data={GalleryData} />
+        </Container>
+      </Section>
       <Section
         smPadding="50px 10px"
         position="relative"
         inverse
         id="eventos"
-        margin="50px 0 0 0"
+        margin="0 0 0 0"
+        style={{background: 'rgb(215,235,235)',}}
       >
         <Container>
-          <Row justify="space-between" margin="1rem" wrap="wrap">
-            <Heading width="auto" inverse>
-              CALENDARIO DE EVENTOS
-            </Heading>
+          <Row>
+            <Heading inverse>CALENDARIO DE EVENTOS</Heading>
           </Row>
           <CalendarScreenHome />
         </Container>
       </Section>
-
       {/* <Carousel /> */}
       <Footer />
     </>

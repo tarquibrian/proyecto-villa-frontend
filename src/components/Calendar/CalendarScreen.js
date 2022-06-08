@@ -1,4 +1,17 @@
 import React, { useState, useEffect } from "react";
+import "./style.css";
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip,
+  Legend,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+} from "chart.js";
+import { Pie, Bar } from "react-chartjs-2";
+
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
@@ -22,6 +35,7 @@ import { AddNewFab } from "../ButtonAdd/AddNewFab";
 import { DeleteEventFab } from "../ButtonAdd/DeleteEventFab";
 import { ReporteEventos } from "../Reports/ReporteEventos";
 import DateTimePicker from "react-datetime-picker";
+import { timeout } from "workbox-core/_private";
 
 moment.locale("es");
 
@@ -34,10 +48,19 @@ const initReport = {
   end: nowone.toDate(),
 };
 const localizer = momentLocalizer(moment);
-
+ChartJS.register(
+  ArcElement,
+  Tooltip,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Legend
+);
 export const CalendarScreen = () => {
   const [newdata, setNewData] = useState([]);
-
+  const [newdatasitios, setNewDataSitios] = useState({});
+  const [chartData, setChartData] = useState({});
   const [dateStart, setDateStart] = useState(nows.toDate());
   const [dateEnd, setDateEnd] = useState(nowone.toDate());
 
@@ -48,7 +71,6 @@ export const CalendarScreen = () => {
   const [sitios, setSitios] = useState([]);
   const { events, activeEvent } = useSelector((state) => state.calendar);
   const { uid } = useSelector((state) => state.auth);
-  console.log(uid);
   const [lastView, setLastView] = useState(
     localStorage.getItem("lastView") || "month"
   );
@@ -56,14 +78,51 @@ export const CalendarScreen = () => {
   useEffect(() => {
     dispatch(eventStartLoading());
     getEvents();
+    getSitios();
   }, [dispatch]);
 
   const getEvents = async () => {
     const res = await axios.get(`${process.env.REACT_APP_API_URL}/events`);
     setSitios(res.data);
   };
+
+  const getSitios = async () => {
+    const res = await axios.get(`${process.env.REACT_APP_API_URL}/sitios`);
+    let total = 0;
+    res.data.forEach((element) => {
+      if (!isNaN(element.counter)) {
+        total = total + element.counter;
+      }
+    });
+    setChartData({
+      labels: res.data.map((item) => item.title),
+      datasets: [
+        {
+          label: "TOTAL VISITAS: " + total,
+          data: res.data.map((item) => item.counter),
+          backgroundColor: [
+            "rgba(255, 99, 132, 0.2)",
+            "rgba(54, 162, 235, 0.2)",
+            "rgba(255, 206, 86, 0.2)",
+            "rgba(75, 192, 192, 0.2)",
+            "rgba(153, 102, 255, 0.2)",
+            "rgba(255, 159, 64, 0.2)",
+          ],
+          borderColor: [
+            "rgba(255, 99, 132, 1)",
+            "rgba(54, 162, 235, 1)",
+            "rgba(255, 206, 86, 1)",
+            "rgba(75, 192, 192, 1)",
+            "rgba(153, 102, 255, 1)",
+            "rgba(255, 159, 64, 1)",
+          ],
+          borderWidth: 1,
+        },
+      ],
+    });
+  };
+
   const onDoubleClick = (e) => {
-    // console.log(e);
     dispatch(uiOpenModal());
   };
 
@@ -145,10 +204,6 @@ export const CalendarScreen = () => {
     if (isTrue === true) setIsTrue(false);
     if (isTrue === false) setIsTrue(true);
     getEvents();
-    // console.log(sitios.eventos)
-    // const pdf = pdfmake.createPdf(dd);
-
-    // pdf.open();
   };
   const handleStartDateChange = (e) => {
     setDateStart(e);
@@ -173,66 +228,102 @@ export const CalendarScreen = () => {
       end: momentEnd,
     });
     setNewData(res.data);
-    console.log(newdata);
-    // console.log(momentStart,momentEnd)
-    // // console.log(momentStart, momentEnd);
-    // // eventos.forEach(function (item, index) {
-    // //   let date = moment(item.start).format("YYYY-MM-DD");
-    // //   if (moment(date).isAfter(momentStart, momentEnd)) {
-    // //     console.log("datarow", item.start, index);
-    // //     reporte.push(item);
-    // //   }
-    // // });
-    // // console.log("reportesss", reporte);
-    // // console.log("eventossss", eventos)
-    // // eventos.map(
-    // //   function (m) {
-    // //     let date = moment(m.start).format("YYYY-MM-DD");
-    // //     if (moment(date).isAfter(momentStart, momentEnd)) {
-    // //       console.log("resultado", m);
-    // //       setNewData(newdata.push(m.start))
-    // //     }
-    // //     return console.log(m.start);
-    // //   }
-    // //   // console.log(m)
-    // // );
-    // // console.log("data",newdata)
-    // const pdf = pdfmake.createPdf(ddd);
-    // pdf.open();
   };
   const [isTrue, setIsTrue] = useState(false);
+  const data1 = {
+    labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+    datasets: [
+      {
+        label: "# of Votes",
+        data: [12, 19, 3, 5, 2, 3],
+        backgroundColor: [
+          "rgba(255, 99, 132, 0.2)",
+          "rgba(54, 162, 235, 0.2)",
+          "rgba(255, 206, 86, 0.2)",
+          "rgba(75, 192, 192, 0.2)",
+          "rgba(153, 102, 255, 0.2)",
+          "rgba(255, 159, 64, 0.2)",
+        ],
+        borderColor: [
+          "rgba(255, 99, 132, 1)",
+          "rgba(54, 162, 235, 1)",
+          "rgba(255, 206, 86, 1)",
+          "rgba(75, 192, 192, 1)",
+          "rgba(153, 102, 255, 1)",
+          "rgba(255, 159, 64, 1)",
+        ],
+        borderWidth: 1,
+      },
+    ],
+  };
+  const optionsBar = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top",
+      },
+      title: {
+        display: true,
+        text: "ESTADISTICAS TIPO TORTA",
+      },
+    },
+  };
+  const optionsPie = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top",
+      },
+      title: {
+        display: true,
+        text: "ESTADISTICAS TIPO BARRA",
+      },
+    },
+  };
+
   return (
     <div>
-      <button onClick={generarPDF}>GENERAR PDF</button>
+      <button className="btn btn-warning m-3" onClick={generarPDF}>
+        MOSTRAR REPORTES
+      </button>
+      <div>
+        
+      </div>
       {isTrue ? (
         <div>
           <Tabs>
             <TabList>
               <Tab>REPORTES POR FECHAS</Tab>
+              <Tab>ESTADISTICAS DE LAS VISITAS</Tab>
               {/* <Tab>REPORTES POR EVENTOS</Tab> */}
-              <Tab>REPORTES POR SITIOS</Tab>
+              {/* <Tab>REPORTES POR SITIOS</Tab> */}
             </TabList>
             <TabPanel>
               {/* <h1>FECHAS</h1> */}
-              <div className="container mb-3">
+              <div className="container mb-3 background p-2">
                 <form className="" onSubmit={handleSubmitForm}>
-                  <div className="form-group">
-                    <label>Fecha inicio</label>
-                    <DateTimePicker
-                      onChange={handleStartDateChange}
-                      value={dateStart}
-                      className={"form-control"}
-                    />
+                  <div className="row">
+                    <div className="form-group col">
+                      <label>Fecha inicio</label>
+                      <DateTimePicker
+                        onChange={handleStartDateChange}
+                        value={dateStart}
+                        className={"form-control index"}
+                      />
+                    </div>
+                    <div className="form-group col">
+                      <label>Fecha final</label>
+                      <DateTimePicker
+                        onChange={handleEndDateChange}
+                        value={dateEnd}
+                        className={"form-control indexx"}
+                      />
+                    </div>
                   </div>
-                  <div className="form-group">
-                    <label>Fecha final</label>
-                    <DateTimePicker
-                      onChange={handleEndDateChange}
-                      value={dateEnd}
-                      className={"form-control"}
-                    />
-                  </div>
-                  <button className="btn btn-secondary" type="submit">Buscar</button>
+
+                  <button className="btn btn-secondary mb-3" type="submit">
+                    Buscar
+                  </button>
                 </form>
                 {newdata && newdata.length ? (
                   <h1>se encontraron {newdata.length} resultados</h1>
@@ -240,39 +331,79 @@ export const CalendarScreen = () => {
                 <ReporteEventos className="form-group" eventos={newdata} />
               </div>
             </TabPanel>
-            {/* <TabPanel>EVENTOS</TabPanel> */}
-            <TabPanel>{/* <h1>SITIOS</h1> */}</TabPanel>
+            <TabPanel>
+              <div className="container">
+                <div className="row align-items-start">
+                  <div className="col">
+                    <Pie
+                      options={{
+                        responsive: true,
+                        plugins: {
+                          title: {
+                            display: true,
+                            text: "GRAFICO DE TORTA",
+                          },
+                          legend: {
+                            display: true,
+                            position: "bottom",
+                          },
+                        },
+                      }}
+                      data={chartData}
+                    />
+                  </div>
+                  <div className="col">
+                    <Bar
+                      options={{
+                        responsive: true,
+                        plugins: {
+                          title: {
+                            display: true,
+                            text: "GRAFICO DE BARRAS",
+                          },
+                          legend: {
+                            display: true,
+                            position: "bottom",
+                          },
+                        },
+                      }}
+                      data={chartData}
+                    />
+                  </div>
+                </div>
+              </div>
+            </TabPanel>
+            {/* <TabPanel></TabPanel> */}
           </Tabs>
         </div>
       ) : null}
       <div>
-        <ContainerCalendar className="calendar-screen">
-        <Calendar
-          localizer={localizer}
-          events={events}
-          startAccessor="start"
-          endAccessor="end"
-          messages={messages}
-          eventPropGetter={eventStyleGetter}
-          onDoubleClickEvent={onDoubleClick}
-          onSelectEvent={onSelectEvent}
-          onView={onViewChange}
-          onSelectSlot={onSelectSlot}
-          selectable={true}
-          view={lastView}
-          components={{
-            event: CalendarEvent,
-          }}
-        />
+        <ContainerCalendar className="calendar-screen index">
+          <Calendar
+            localizer={localizer}
+            events={events}
+            startAccessor="start"
+            endAccessor="end"
+            messages={messages}
+            eventPropGetter={eventStyleGetter}
+            onDoubleClickEvent={onDoubleClick}
+            onSelectEvent={onSelectEvent}
+            onView={onViewChange}
+            onSelectSlot={onSelectSlot}
+            selectable={true}
+            view={lastView}
+            components={{
+              event: CalendarEvent,
+            }}
+          />
 
-        <AddNewFab />
+          <AddNewFab />
 
-        {activeEvent && <DeleteEventFab />}
+          {activeEvent && <DeleteEventFab />}
 
-        <CalendarModal />
-      </ContainerCalendar>
+          <CalendarModal />
+        </ContainerCalendar>
       </div>
-      
     </div>
   );
 };

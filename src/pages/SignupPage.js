@@ -6,7 +6,7 @@ import Carousel from "../components/Carousel/Carousel";
 function SignUp() {
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <Carousel />
       <Footer />
     </>
