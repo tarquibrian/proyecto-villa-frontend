@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Section } from "../../globalStyles";
 import {
   ContentRow,
@@ -26,7 +26,7 @@ export const Content = ({
   alt,
   inverse,
   reverse,
-	linkTo,
+  linkTo,
 }) => {
   const initial = { opacity: 0, y: 30 };
   const animation = useAnimation();
@@ -43,7 +43,7 @@ export const Content = ({
   }, [inView, animation]);
 
   return (
-    <Section inverse={reverse} ref={ref}>
+    <Section inverse={reverse} ref={ref} padding="60px 0" position="relative">
       <Container>
         <ContentRow reverse={reverse}>
           <ContentColumn>

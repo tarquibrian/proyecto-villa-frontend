@@ -10,6 +10,7 @@ const HeroSection = styled.section`
   max-height: 1100px;
   position: relative;
   overflow: hidden;
+
   /* clip-path: polygon(0% 82.25%, 28.15% 82.25%, 50% 100%, 0% 100%); */
 `;
 
@@ -21,6 +22,7 @@ const HeroWrapper = styled.div`
   align-items: center;
   overflow: hidden;
   position: relative;
+  
 `;
 
 const HeroSlide = styled.div`
@@ -38,6 +40,8 @@ const HeroSlider = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  /* opacity: 0.1; */
 
   &::before {
     content: "";
@@ -65,25 +69,25 @@ const HeroImage = styled(motion.img)`
   width: 100vw;
   height: 100vh;
   object-fit: cover;
+  /* opacity: 0.2; */
 `;
 const HeroContent = styled.div`
   position: absolute;
   z-index: 10;
   display: flex;
   flex-direction: column;
-  width: 40%;
   min-width: 300px;
   color: #fff;
-  background: rgba(155, 155, 155, 0.4);
+  background: rgba(56, 209, 106, 0.5);
   -webkit-backdrop-filter: blur(4px);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(2px);
+  border: 1px solid rgba(56, 209, 106, 0.7);
   bottom: 34px;
   border-radius: 10px;
   left: 34px;
   padding: 1rem;
-
   h1 {
+    /* font-family: 'Staatliches', cursive; */
     font-size: clamp(1rem, 8vw, 2rem);
     font-weight: 400;
     text-transform: uppercase;
@@ -170,8 +174,8 @@ export const Hero = ({ slides }) => {
   }
 
   const fadeAnimation = {
-    hidden: { opacity: 0.8 },
-    visible: { opacity: 1, transition: { duration: 0.3 } },
+    hidden: { opacity: 0.9 },
+    visible: { opacity: 1, transition: { duration: 0.2 } },
     exit: { opacity: 0 },
   };
 
@@ -203,7 +207,7 @@ export const Hero = ({ slides }) => {
                       >
                         {slide.price}
                       </p>
-                      <Button
+                      {/* <Button
                         data-aos="zoom-out"
                         data-aos-duration="500"
                         data-aos-delay="250"
@@ -216,7 +220,7 @@ export const Hero = ({ slides }) => {
                       >
                         {slide.label}
                         <Arrow />
-                      </Button>
+                      </Button> */}
                     </HeroContent>
                   </HeroSlider>
                 )}

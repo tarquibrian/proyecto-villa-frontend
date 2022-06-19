@@ -1,0 +1,237 @@
+
+/*------------ wrapperOne ----------*/
+/*------------ work ----------*/
+.work {
+  /* background-color: #08071c; */
+  padding: 40px 0;
+  height: 140vh;
+}
+.work .heading {
+  text-align: center;
+  color: #0c4577;
+  padding: 2rem 0;
+}
+.work .content {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 4vw);
+  gap: .3rem;
+  /* overflow: hidden; */
+}
+
+.work .box:nth-child(1) {
+  grid-column-start: 1;
+  grid-column-end: 5;
+  grid-row-start: 1;
+  grid-row-end: 4;
+}
+.work .box:nth-child(2) {
+  grid-column-start: 5;
+  grid-column-end: 7;
+  grid-row-start: 1;
+  grid-row-end: 4;
+}
+.work .box:nth-child(3) {
+  grid-column-start: 7;
+  grid-column-end: 9;
+  grid-row-start: 1;
+  grid-row-end: 4;
+}
+.work .box:nth-child(4) {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 8;
+  grid-row-end: 8;
+}
+.work .box:nth-child(5) {
+  grid-column-start: 3;
+  grid-column-end: 5;
+  grid-row-start: 8;
+  grid-row-end: 8;
+}
+.work .box:nth-child(6) {
+  grid-column-start: 5;
+  grid-column-end: 9;
+  grid-row-start: 8;
+  grid-row-end: 8;
+}
+
+.work img {
+  position: relative;
+  width: 100%;
+  height: 550px;
+  object-fit: cover;
+}
+.work .box {
+  position: relative;
+  height: 550px;
+  color: #fff;
+}
+.overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex-wrap: wrap;
+  padding: 50px;
+  position: absolute;
+  top: 25%;
+  left: 0;
+  margin: auto;
+  opacity: 0;
+}
+.overlay h2 {
+  font-weight: 500;
+}
+.work .box:hover .overlay {
+  opacity: 1;
+  cursor: pointer;
+}
+.work .box::after {
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: 0.5s;
+}
+
+.work .box:nth-child(5)::after,
+.work .box:nth-child(4)::after,
+.work .box:nth-child(3)::after,
+.work .box:nth-child(2)::after {
+  width: 380px;
+  height: 550px;
+  background: rgba(18, 22, 25, 0.925);
+  
+}
+.work .box:nth-child(6)::after,
+.work .box:nth-child(1)::after {
+  width: 758px;
+  height: 550px;
+  background: rgba(18, 22, 25, 0.925);
+}
+.work .box:hover::after {
+  opacity: 1;
+}
+.work .box .icon,
+.work .box .text {
+  position: relative;
+  z-index: 4;
+}
+.work .box p {
+  color: #fff;
+  margin-top: 20px;
+}
+.work .box .icon {
+  margin-top: 25%;
+}
+.iconWork {
+  position: absolute;
+  width: 100%;
+}
+.iconWork:nth-child(1) {
+  left: 160px;
+}
+.iconWork:nth-child(2) {
+  right: 160px;
+}
+/*------------ work ----------*/
+/*------------ blog ----------*/
+.blog .heading {
+  text-align: center;
+}
+.blog .text {
+  margin: 0;
+}
+.blog span {
+  opacity: 0.5;
+  font-size: 15px;
+}
+.blog h2 {
+  margin: 20px 0;
+}
+.blog a {
+  color: #38d16a;
+  display: block;
+  line-height: 20px;
+}
+.blog a .icon {
+  padding-top: 10px;
+}
+/*------------ blog ----------*/
+/*------------ footer ----------*/
+
+@media screen and (max-width: 768px) {
+
+  /*------------ work ----------*/
+  .work {
+    height: 340vh;
+  }
+
+  .work .content {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(1, 20vw);
+  }
+
+  .work .box:nth-child(1) {
+    grid-column-start: 1;
+    grid-column-end: 1;
+    grid-row-start: 1;
+    grid-row-end: 5;
+  }
+  .work .box:nth-child(2) {
+    grid-column-start: 1;
+    grid-column-end: 7;
+    grid-row-start: 5;
+    grid-row-end: 8;
+  }
+
+  .work .box:nth-child(3) {
+    grid-column-start: 1;
+    grid-column-end: 9;
+    grid-row-start: 8;
+    grid-row-end: 11;
+  }
+  .work .box:nth-child(4) {
+    grid-column-start: 1;
+    grid-column-end: 9;
+    grid-row-start: 11;
+    grid-row-end: 14;
+  }
+  .work .box:nth-child(5) {
+    grid-column-start: 1;
+    grid-column-end: 9;
+    grid-row-start: 14;
+    grid-row-end: 17;
+  }
+  .work .box:nth-child(6) {
+    grid-column-start: 1;
+    grid-column-end: 9;
+    grid-row-start: 17;
+    grid-row-end: 20;
+  }
+
+  .work .box:nth-child(5)::after,
+  .work .box:nth-child(4)::after,
+  .work .box:nth-child(3)::after,
+  .work .box:nth-child(2)::after,
+  .work .box:nth-child(6)::after,
+  .work .box:nth-child(1)::after {
+    width: 767px;
+    height: 550px;
+    background: rgba(18, 22, 25, 0.925);
+  }
+
+  /*------------ work ----------*/
+
+  /*------------ footer ----------*/
+
+  
+  /*------------ footer ----------*/
+}
+/*------------ pages ----------*/
+
+
+/*------------ pages ----------*/

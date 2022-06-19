@@ -19,7 +19,7 @@ const GlobalStyle = createGlobalStyle`
       width: 10px;
     }
     ::-webkit-scrollbar-track {
-      background: #27ef9f;
+      background: #38d16a;
     }
     ::-webkit-scrollbar-thumb {
       background: #000d1a;
@@ -30,11 +30,10 @@ const GlobalStyle = createGlobalStyle`
 
 export const Container = styled.div`
   width: 100%;
-  max-width: 1300px;
+  max-width: 1635px;
   margin-right: auto;
   margin-left: auto;
   padding: 0 50px;
-
   @media screen and (max-width: 960px) {
     padding: ${({ inpading }) => (inpading ? inpading : "0 30px")};
   }
@@ -70,9 +69,9 @@ export const TextWrapper = styled.span`
   margin-top: ${({ mt }) => (mt ? mt : "")};
 `;
 export const Section = styled.section`
-  padding: ${({ padding }) => (padding ? padding : "80px 0")};
-  margin: ${({ margin }) => (margin ? margin : "")};
-  background: ${({ inverse }) => (inverse ? "white" : "rgb(215,235,235)")};
+  padding: ${({ padding }) => (padding ? padding : "0")};
+  margin: ${({ margin }) => (margin ? margin : "0")};
+  background: ${({ inverse }) => (inverse ? "white" : "white")};
   position: ${({ position }) => (position ? position : "")};
   width: ${({ width }) => (width ? width : "auto")};
   min-width: ${({ minWidth }) => (minWidth ? minWidth : "auto")};
@@ -81,7 +80,7 @@ export const Section = styled.section`
   max-height: ${({ maxHeight }) => (maxHeight ? maxHeight : "auto")};
   min-height: ${({ minHeight }) => (minHeight ? minHeight : "auto")};
   @media screen and (max-width: 768px) {
-    padding: ${({ smPadding }) => (smPadding ? smPadding : "40px 0")};
+    padding: ${({ smPadding }) => (smPadding ? smPadding : "50px 0")};
   }
 `;
 

@@ -1,14 +1,19 @@
-import React from 'react';
-import styled, { css } from 'styled-components/macro';
-import { Link } from 'react-router-dom';
-import { Button } from './Button';
-import { IoMdArrowRoundForward } from 'react-icons/io';
+import React from "react";
+import styled, { css } from "styled-components/macro";
+import { Link } from "react-router-dom";
+import { Button } from "./Button";
+import { IoMdArrowRoundForward } from "react-icons/io";
+import {
+  AiFillAccountBook,
+  AiOutlineMail,
+  AiOutlinePhone,
+} from "react-icons/ai";
 import {
   FaInstagram,
   FaFacebookF,
   FaLinkedinIn,
-  FaYoutube
-} from 'react-icons/fa';
+  FaYoutube,
+} from "react-icons/fa";
 
 const Section = styled.section`
   background: #000d1a;
@@ -21,13 +26,13 @@ const Section = styled.section`
 const Container = styled.div`
   height: 100%;
   width: 100%;
-  padding: 2rem;
+  padding: 1rem;
 `;
 
 const FooterTop = styled.div`
   display: flex;
   flex-direction: row;
-  padding: 4rem 0rem;
+  padding: 2rem 0rem;
 
   @media screen and (max-width: 768px) {
     flex-direction: column;
@@ -39,7 +44,12 @@ const Quote = styled.div`
   padding: 2rem 0rem;
 
   h3 {
-    font-size: clamp(2rem, 8vw, 5rem);
+    font-size: clamp(2rem, 8vw, 2rem);
+    font-style: italic;
+  }
+
+  h4 {
+    font-size: clamp(1rem, 4vw, 0.2rem);
   }
 `;
 
@@ -49,6 +59,9 @@ const FooterInfo = styled.div`
   display: flex;
   flex-direction: column;
 
+  h4 {
+    font-size: 1rem;
+  }
   a {
     color: #fff;
     text-decoration: none;
@@ -81,7 +94,7 @@ const SocialIcons = styled.div`
 const Icons = css`
   font-size: clamp(1rem, 6vw, 2rem);
   margin-right: 1.5rem;
-  color: #cd853f;
+  color: #d8e0fd;
 `;
 
 const Instagram = styled(FaInstagram)`
@@ -105,7 +118,6 @@ const Contact = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-
   @media screen and (max-width: 768px) {
     width: 100%;
     justify-content: flex-start;
@@ -119,60 +131,71 @@ const Footer = () => {
         <FooterTop>
           <Quote>
             <h3>
-              Let's find <br /> your Dream Home
+              VILLA RIVERO
+              <br /> Tierra de Personajes Célebres y Buenas Tradiciones
             </h3>
+            <h4>Villa Rivero, Cochabamba, Bolivia</h4>
           </Quote>
+          {/* <FooterInfo>
+            <h4>DATOS</h4>
+            <Link to="/homes">Correo</Link>
+            <Link to="/homes">Support</Link>
+            <Link to="/homes">Questions</Link>
+          </FooterInfo> */}
           <FooterInfo>
-            <h4>Contact Us</h4>
-            <Link to='/homes'>FAQ</Link>
-            <Link to='/homes'>Support</Link>
-            <Link to='/homes'>Questions</Link>
-          </FooterInfo>
-          <FooterInfo>
-            <h4>Offices</h4>
-            <Link to='/homes'>United States</Link>
-            <Link to='/homes'>Europe</Link>
-            <Link to='/homes'>Canada</Link>
+            <h4>Datos Institucionales</h4>
+            <h4>
+              <AiOutlinePhone /> 4768724 - 76146498
+            </h4>
+            <h4>
+              <AiOutlineMail /> villariveromunicipio@gmail.com
+            </h4>
+            {/* <Link to="/homes">4598726</Link>
+            <Link to="/homes">Canada</Link> */}
           </FooterInfo>
         </FooterTop>
         <FooterBottom>
           <SocialIcons>
             <a
-              href='//www.google.com'
-              rel='noopener noreferrer'
-              target='_blank'
+              href="//youtube.com/channel/UC1LgOQHsdFxfN36GCSHr36g/featured"
+              rel="noopener noreferrer"
+              target="_blank"
             >
               <Youtube />
             </a>
             <a
-              href='//www.google.com'
-              rel='noopener noreferrer'
-              target='_blank'
+              href="//www.instagram.com"
+              rel="noopener noreferrer"
+              target="_blank"
             >
               <Instagram />
             </a>
             <a
-              href='//www.google.com'
-              rel='noopener noreferrer'
-              target='_blank'
+              href="//facebook.com/profile.php?id=100072025826322"
+              rel="noopener noreferrer"
+              target="_blank"
             >
               <Facebook />
             </a>
             <a
-              href='//www.google.com'
-              rel='noopener noreferrer'
-              target='_blank'
+              href="//www.linkedin.com"
+              rel="noopener noreferrer"
+              target="_blank"
             >
               <LinkedIn />
             </a>
           </SocialIcons>
           <Contact>
-            <Button to='/homes'>
-              Let's Chat <IoMdArrowRoundForward />
+            <Button to="/Login" round="5px">
+              LOGIN
+              <IoMdArrowRoundForward />
             </Button>
           </Contact>
         </FooterBottom>
       </Container>
+      <p style={{ textAlign: "center" }}>
+        © 2022 Gobierno Autónomo Municipal de Villa Rivero
+      </p>
     </Section>
   );
 };

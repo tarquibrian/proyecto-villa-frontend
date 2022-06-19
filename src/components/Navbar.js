@@ -4,7 +4,7 @@ import styled, { css } from "styled-components/macro";
 import { menuData } from "../data/MenuData";
 import { Button } from "./Button";
 import Bars from "../images/bars.svg";
-import { normalizeUnits } from "moment";
+// import { normalizeUnits } from "moment";
 
 const Nav = styled.nav`
   height: 60px;
@@ -133,7 +133,7 @@ export const Navbar = ({ toggle }) => {
   return (
     <Nav style={style}>
       <Logo to="/" style={style2}>
-        VILLA RIVERO
+        GOBIERNO DE VILLA RIVERO
       </Logo>
       <MenuBars onClick={toggle} />
       <NavMenu>

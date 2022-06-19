@@ -9,6 +9,7 @@ import { Sidebar } from "../../components/sidebar/Sidebar";
 export const NewPost = () => {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
+  const [category, setCategory] = useState("");
   const [file, setFile] = useState(null);
   const { user } = useContext(Context);
 
@@ -18,6 +19,7 @@ export const NewPost = () => {
       username: user.name,
       title,
       desc,
+      category,
     };
     if (file) {
       const data = new FormData();
@@ -34,8 +36,9 @@ export const NewPost = () => {
         `${process.env.REACT_APP_API_URL}/posts`,
         newPost
       );
+      console.log(newPost);
       window.location.replace(
-        `${process.env.REACT_APP_WINDOW_URL}/#/post/` + res.data._id
+        `${process.env.REACT_APP_WINDOW_URL}/post/` + res.data._id
       );
     } catch (err) {}
   };
@@ -52,6 +55,20 @@ export const NewPost = () => {
             <img className="writeImg" src={URL.createObjectURL(file)} alt="" />
           )}
           <form className="writeForm" onSubmit={handleSubmit}>
+            <select
+              name="select"
+              className=""
+              value={category}
+              onChange={(e) => {
+                setCategory(e.target.value);
+                console.log(category);
+              }}
+            >
+              <option selected>selecione</option>
+              <option value="biografias">biografias</option>
+              <option value="mitos">mitos</option>
+              <option value="cuentos">cuentos</option>
+            </select>
             <div className="writeFormGroup">
               <label htmlFor="fileInput">
                 <i className="writeIcon fas fa-plus"></i>
@@ -78,6 +95,7 @@ export const NewPost = () => {
                 onChange={(e) => setDesc(e.target.value)}
               ></textarea>
             </div>
+
             <button className="writeSubmit" type="submit">
               Publicar
             </button>

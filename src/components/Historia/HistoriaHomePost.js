@@ -11,9 +11,9 @@ export const HistoriaHomePost = ({ post }) => {
         {post.photo && <img className="postImg" src={PF + post.photo} alt="" />}
         <div className="postInfo">
           <div className="postCats">
-            {post.categories.map((c) => (
+            {/* {post.categories.map((c) => (
               <span className="postCat">{c.name}</span>
-            ))}
+            ))} */}
           </div>
           <Link to={`/postHome/${post._id}`} className="link">
             <span className="postTitle">{post.title}</span>

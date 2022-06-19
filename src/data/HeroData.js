@@ -24,7 +24,7 @@ export const heroTwo = {
 	},
 	headline: 'Biografías de Personajes Históricos y Tradiciones Costumbristas',
 	description: 'La parroquia San Isidro, el centro de residentes y  la Alcaldía de Villa Rivero veneran en julio a la milagrosa Virgen María del Carmen.',
-	buttonLabel: 'Ver Eventos',
+	buttonLabel: 'Saber Más',
 	linkTo: '/historias',
 	imgStart: 'start',
 	img: ImageHistorias,
@@ -40,10 +40,12 @@ export const heroThree = {
 	headline: 'Casa Natal del Expresidente Gualberto Villarroel',
 	description:
 		'La histórica casa del notable militar, político y presidente de Bolivia, Gualberto Villarroel López (1908-1946)',
-	buttonLabel: 'Ver Sitios',
+	buttonLabel: 'Saber Más',
 
 	linkTo: '/sitios',
 	imgStart: '',
 	img: './assets/casa-gualberto-villarroel.jpg',
 	start: 'true',
 };
+
+

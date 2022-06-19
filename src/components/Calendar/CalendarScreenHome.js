@@ -29,7 +29,7 @@ export const CalendarScreenHome = () => {
   const dispatch = useDispatch();
   const { events, activeEvent } = useSelector((state) => state.calendar);
   const { uid } = useSelector((state) => state.auth);
-  console.log(uid)
+  console.log("datos", uid, events)
   const [lastView, setLastView] = useState(
     localStorage.getItem("lastView") || "month"
   );

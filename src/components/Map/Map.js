@@ -42,8 +42,11 @@ const initResponse = {
   response: null,
 };
 
-export const Map = ({ lugares }) => {
+const PF = process.env.REACT_APP_IMG_URL + "/images/";
+
+export const Map = () => {
   const { uid } = useSelector((state) => state.auth);
+  const [file, setFile] = useState(null)
   const [positionValue, setPositionValue] = useState({
     latitude: 0,
     longitude: 0,
@@ -110,12 +113,14 @@ export const Map = ({ lugares }) => {
 
   const captureClick = async (id) => {
     try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/sitios/contador`, {id: id});
+      await axios.post(`${process.env.REACT_APP_API_URL}/sitios/contador`, {
+        id: id,
+      });
       //fetchSitios();
     } catch (err) {
       // console.log(err);
     }
-  }
+  };
 
   const capturePosition = (destination) => {
     window.navigator.geolocation.getCurrentPosition((pos) => {
@@ -152,6 +157,17 @@ export const Map = ({ lugares }) => {
   const handleSubmitForm = async (e) => {
     e.preventDefault();
 
+    if (file) {
+      const data = new FormData();
+      const filename = Date.now() + file.name;
+      data.append("name", filename);
+      data.append("file", file);
+      formValues.photo = filename;
+      try {
+        await axios.post(`${process.env.REACT_APP_API_URL}/upload`, data);
+      } catch (err) {}
+    }
+
     if (title.trim().length < 2) {
       return setTitleValid(false);
     }
@@ -173,7 +189,7 @@ export const Map = ({ lugares }) => {
           mapContainerStyle={{ width: "100%", height: "80vh" }}
         >
           {sitios.map(
-            ({ _id, title, lat, lng, description, city, country }) => (
+            ({ _id, title, lat, lng, description, city, country, photo }) => (
               <Marker
                 key={_id}
                 position={{ lat, lng }}
@@ -188,7 +204,7 @@ export const Map = ({ lugares }) => {
                   <InfoWindow onCloseClick={() => setActiveMarker(null)}>
                     <div>
                       <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Plaza_de_Villa_Rivero.JPG"
+                        src={PF + photo}
                         alt="plaza villa rivero"
                         width="150"
                         height="150"
@@ -200,7 +216,10 @@ export const Map = ({ lugares }) => {
                       <button
                         type="button"
                         className="btn btn-primary"
-                        onClick={() => {capturePosition({ lat, lng }); captureClick(_id)}}
+                        onClick={() => {
+                          capturePosition({ lat, lng });
+                          captureClick(_id);
+                        }}
                       >
                         GENERAR RUTA
                       </button>
@@ -258,6 +277,15 @@ export const Map = ({ lugares }) => {
             <h2> Detalles de Sitio </h2>
             <form className="container" onSubmit={handleSubmitForm}>
               <hr />
+              <div className="form-group">
+                <input
+                  type="file"
+                  className={`form-control ${!titleValid && "is-invalid"}`}
+                  name="file"
+                  onChange={(e) => setFile(e.target.files[0])}
+                  accept="image/*"
+                />
+              </div>
               <div className="form-group">
                 <input
                   type="text"
@@ -334,7 +362,7 @@ export const Map = ({ lugares }) => {
                 className="btn btn-outline-primary btn-block"
               >
                 <i className="far fa-save"></i>
-                <span> Guardar</span>
+                <span>Guardar</span>
               </button>
             </form>
             {/* <button onClick={closeModal}>close</button> */}

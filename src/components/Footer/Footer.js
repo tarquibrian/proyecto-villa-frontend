@@ -14,18 +14,19 @@ import {
 } from "./FooterStyles";
 import { footerData, footerSocialData } from "../../data/FooterData";
 import { Row, Section } from "../../globalStyles";
-import { useHistory } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 
 function Footer() {
-  
   let history = useHistory();
-  
-  const closeMobileMenu = (to, id) => {
 
+  const closeMobileMenu = (to, id) => {
     history.push(to);
   };
   return (
-    <Section padding="4rem 0 2rem 0">
+    <Section
+      padding="50px 0"
+      position="relative"
+    >
       <FooterWrapper>
         <FooterGrid justify="space-between">
           <FooterColumn id="footerLogo">

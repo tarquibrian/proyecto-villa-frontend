@@ -4,7 +4,6 @@ import { HistoriaPosts } from "./HistoriaPosts";
 import { useLocation } from "react-router";
 import axios from "axios";
 import { AddNewPost } from "../ButtonAdd/AddNewPost";
-import { Sidebar } from "../sidebar/Sidebar";
 
 export const Historia = () => {
   const [posts, setPosts] = useState([]);
@@ -20,7 +19,6 @@ export const Historia = () => {
   }, [search]);
   return (
     <Container>
-      {/* <Sidebar /> */}
       <AddNewPost />
       <HistoriaPosts posts={posts} />
     </Container>

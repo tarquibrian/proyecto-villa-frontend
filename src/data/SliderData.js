@@ -22,16 +22,16 @@ import Image21 from "../images/img21.jpg";
 
 export const SliderData = [
   {
-    title: "ALCALDIA MUNICIPAL DE VILLA RIVERO",
-    price: "FUENTE DE LA PLAZA PRINCIPAL",
+    title: "FUENTE DE LA PLAZA PRINCIPAL",
+    price: "VILLA RIVERO",
     path: "/homes",
     label: "SABER MÁS",
     image: ImageSeven,
     alt: "House",
   },
   {
-    title: "ALCALDIA MUNICIPAL DE VILLA RIVERO",
-    price: "ENTRADA PRINCIPAL HACIA EL MUNICIPIO",
+    title: "ENTRADA PRINCIPAL HACIA EL MUNICIPIO",
+    price: "VILLA RIVERO",
     path: "/homes",
     label: "SABER MÁS",
     image: ImageFive,
@@ -39,24 +39,24 @@ export const SliderData = [
   },
 
   {
-    title: "ALCALDIA MUNICIPAL DE VILLA RIVERO",
-    price: "ALTAR DE LA PLAZA PRINCIPAL",
+    title: "ALTAR DE LA PLAZA PRINCIPAL",
+    price: "VILLA RIVERO",
     path: "/homes",
     label: "SABER MÁS",
     image: Image8,
     alt: "House",
   },
   {
-    title: "ALCALDIA MUNICIPAL DE VILLA RIVERO",
-    price: "IGLESIA DEL MUNICIPIO",
+    title: "IGLESIA DEL MUNICIPIO",
+    price: "VILLA RIVERO",
     path: "/homes",
     label: "SABER MÁS",
     image: Image10,
     alt: "House",
   },
   {
-    title: "ALCALDIA MUNICIPAL DE VILLA RIVERO",
-    price: "ALCALDIA MINICIPAL FRENTE A LA PLAZA",
+    title: "ALCALDIA MINICIPAL FRENTE A LA PLAZA",
+    price: "VILLA RIVERO",
     path: "/homes",
     label: "SABER MÁS",
     image: Image12,
@@ -71,8 +71,8 @@ export const SliderData = [
   //   alt: "House",
   // },
   {
-    title: "ALCALDIA MUNICIPAL DE VILLA RIVERO",
-    price: "VISTA SUD-ESTE DE LA PLAZA PRINCIPAL",
+    title: "VISTA SUD-ESTE DE LA PLAZA PRINCIPAL",
+    price: "VILLA RIVERO",
     path: "/homes",
     label: "SABER MÁS",
     image: Image15,

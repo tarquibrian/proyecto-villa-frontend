@@ -55,7 +55,7 @@ export const CalendarModal = () => {
   const [dateStart, setDateStart] = useState(now.toDate());
   const [dateEnd, setDateEnd] = useState(nowone.toDate());
   const [titleValid, setTitleValid] = useState(true);
-
+  const [file, setFile] = useState(null);
   const [formValues, setFormValues] = useState(initEvent);
 
   const { notes, title, start, end, place } = formValues;
@@ -74,7 +74,7 @@ export const CalendarModal = () => {
       ...formValues,
       [target.name]: target.value,
     });
-  //console.log(formValues);
+    //console.log(formValues);
   };
   const getEvents = async () => {
     const res = await axios.get(`${process.env.REACT_APP_API_URL}/sitios`);
@@ -102,18 +102,28 @@ export const CalendarModal = () => {
       end: e,
     });
   };
-  const handleSubmitForm = (e) => {
+  const handleSubmitForm = async (e) => {
     e.preventDefault();
 
     const momentStart = moment(start);
     const momentEnd = moment(end);
-
     if (momentStart.isSameOrAfter(momentEnd)) {
       return Swal.fire(
         "Error",
         "La fecha fin debe de ser mayor a la fecha de inicio",
         "error"
       );
+    }
+
+    if (file) {
+      const data = new FormData();
+      const filename = Date.now() + file.name;
+      data.append("name", filename);
+      data.append("file", file);
+      formValues.photo = filename;
+      try {
+        await axios.post(`${process.env.REACT_APP_API_URL}/upload`, data);
+      } catch (err) {}
     }
 
     if (title.trim().length < 2) {
@@ -175,6 +185,19 @@ export const CalendarModal = () => {
         <hr />
         <div className="form-group">
           <input
+            type="file"
+            className={`form-control ${!titleValid && "is-invalid"}`}
+            name="file"
+            onChange={(e) => setFile(e.target.files[0])}
+            accept="image/*"
+          />
+          {/* <label for="img" class="btn btn-info">
+            Seleccionar Imagen
+          </label>
+          <input type="file" id="img" style={{ display: "none" }} /> */}
+        </div>
+        <div className="form-group">
+          <input
             type="text"
             className={`form-control ${!titleValid && "is-invalid"}`}
             placeholder="Título del evento"
@@ -218,7 +241,7 @@ export const CalendarModal = () => {
         <div className="form-group">
           <select
             name="place"
-            class="form-select"
+            className="form-select"
             value={place}
             onChange={handleInputChange}
             disabled={uid ? false : true}

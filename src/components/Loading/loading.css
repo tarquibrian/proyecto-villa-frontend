@@ -1,0 +1,19 @@
+
+
+.spinner {
+   
+}
+
+@keyframes spinner-b87k6z {
+   to {
+      transform: rotate(360deg);
+   }
+}
+@keyframes loaderSwipeAnim{
+   0%{
+       left: -100%;
+   }
+   100%{
+       left: 100%;
+   }
+ }

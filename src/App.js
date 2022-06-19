@@ -28,6 +28,7 @@ import { Historias } from "./pages/Historias";
 import { Eventos } from "./pages/Eventos";
 import { Navbar } from "./components/Navbar";
 import { Dropdow } from "./components/Dropdow";
+import { Loading } from "./components/Loading/Loading";
 
 function App() {
   console.log(process.env);
@@ -50,7 +51,11 @@ function App() {
   }, [location.pathname]);
 
   if (checking) {
-    return <h5>Espere por favor o revise su conexion a internet...</h5>;
+    return (
+      <>
+        <Loading />
+      </>
+    );
   }
 
   return (

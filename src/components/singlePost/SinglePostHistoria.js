@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 import { Context } from "../../context/Context";
+import styled from "styled-components";
 import "./singlePost.css";
 import { Sidebar } from "../sidebar/Sidebar";
 // import { Container } from "../Historia/HistoriaStyle";
@@ -15,6 +16,43 @@ import {
   Heading,
   TextWrapper,
 } from "../../globalStyles";
+
+const Header = styled.header`
+  background-color: #a0d6cc;
+  color: #fff;
+  text-align: center;
+  padding: 30px 0 120px;
+  margin-bottom: 5px;
+  min-width: 10rem;
+  h1 {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 45px;
+    font-weight: 400;
+    letter-spacing: 3px;
+    line-height: 0.8;
+    padding-top: 50px;
+    font-family: "Montserrat", sans-serif;
+  }
+  h1 span {
+    text-transform: uppercase;
+    letter-spacing: 7px;
+    font-size: 25px;
+    line-height: 1;
+  }
+
+  p {
+    padding-top: 30px;
+  }
+  @media screen and (max-width: 600px) {
+    h1 {
+      font-size: 20px;
+    }
+    h1 span {
+      font-size: 18px;
+    }
+  }
+`;
 
 export const SinglePostHistoria = () => {
   const location = useLocation();
@@ -60,11 +98,23 @@ export const SinglePostHistoria = () => {
 
   return (
     <>
-      <Section smPadding="50px 0px" inverse id="about" margin="0 0 0 0">
+      <Section
+        padding="50px 0"
+        position="relative"
+        inverse
+        id="eventos"
+        background="true"
+      >
         {/* <Navbar /> */}
-
-        <Container>
+        <Header>
+          <h1>
+            HISTORIAS - BIOGRAFIAS - CUENTOS
+            <br /> <span>[ CONOCE MÁS ACERCA DEL MUNICIPIO ]</span>
+          </h1>
+        </Header>
+        <Container >
           {/* <Sidebar /> */}
+
           <Link className="blogItem-link btn btn-secondary" to={`/historias`}>
             Atras
           </Link>

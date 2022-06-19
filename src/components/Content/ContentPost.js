@@ -22,7 +22,6 @@ export const ContentPost = (p) => {
   const animation = useAnimation();
   const PF = process.env.REACT_APP_IMG_URL + "/images/";
   const { ref, inView } = useInView({ threshold: 0.2 });
-  const [bool, setBool] = useState(p.valor);
   useEffect(() => {
     if (inView) {
       animation.start({
@@ -30,18 +29,10 @@ export const ContentPost = (p) => {
         y: 0,
       });
     }
-    console.log(p.valor);
   }, [inView, animation]);
-  const cambio = (valor) => {
-    if (valor === true) {
-      setBool(false);
-    } else {
-      setBool(true);
-    }
-  };
   return (
     <div>
-      <Section inverse={bool ? true : false} ref={ref}  >
+      <Section ref={ref} padding="50px 0" position="relative">
         <Container>
           <ContentRow reverse={true}>
             <ContentColumn>

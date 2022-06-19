@@ -1,34 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { IoMdTennisball } from "react-icons/io";
 import { Link } from "react-router-dom";
+import { Container } from "../globalStyles";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 const Section = styled.section``;
 
 const Portafolio = styled.section`
-  background: red;
   width: 100%;
-  min-height: 1400px;
+  height: 100%;
+  /* min-height: 1500px; */
   background: transparent;
   position: relative;
   display: grid;
-  grid-template-columns: repeat(2, minmax(500px, 1fr));
-
+  grid-template-columns: repeat(auto, 1fr);
+  /* grid-template-rows: ; */
   grid-gap: 5px;
-
-  /* width: 100%;
-  height: 100%;
-  position: relative;
-  padding: 1rem;
-  height: 4rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  gap: 1rem; */
-
-  /* @media (min-width: 600px) {
-    grid-template-columns: repeat(2, 1fr);
-  } */
   @media (min-width: 300px) {
     grid-template-columns: repeat(1, 1fr);
   }
@@ -45,9 +34,9 @@ const Portafolio = styled.section`
 
 const Project = styled.div`
   position: relative;
-  background: #f2dad7;
+  /* background: #a0d6cc; */
   overflow: hidden;
-  height: 100%;
+  height: 30rem;
   width: 100%;
   p {
     position: absolute;
@@ -58,12 +47,6 @@ const Project = styled.div`
     letter-spacing: 2px;
     z-index: 3;
   }
-
-  /* img {
-    position: absolute;
-    opacity: 0.9;
-    
-  } */
 `;
 
 const Image = styled.img`
@@ -89,7 +72,7 @@ const Title = styled.h3`
 `;
 
 const Overlay = styled.div`
-  background: #a0d6cc;
+  background: rgba(18, 22, 25, 0.925);
   height: 100%;
   grid-column: 1/-1;
   grid-row: 1/-1;
@@ -129,10 +112,11 @@ const Header = styled.header`
   text-align: center;
   padding: 30px 0 120px;
   margin-bottom: 5px;
+  min-width: 10rem;
   h1 {
     text-align: center;
     text-transform: uppercase;
-    font-size: 65px;
+    font-size: 45px;
     font-weight: 400;
     letter-spacing: 3px;
     line-height: 0.8;
@@ -148,6 +132,14 @@ const Header = styled.header`
 
   p {
     padding-top: 30px;
+  }
+  @media screen and (max-width: 600px) {
+    h1 {
+      font-size: 20px;
+    }
+    h1 span {
+      font-size: 18px;
+    }
   }
 `;
 
@@ -170,8 +162,19 @@ const BtnGallery = styled(Link)`
     text-decoration: none;
   }
 `;
+const PF = process.env.REACT_APP_IMG_URL + "/images/";
 
-export const Gallery = ({ data }) => {
+export const Gallery = () => {
+  const { events, activeEvent } = useSelector((state) => state.calendar);
+  // useEffect(() => {
+  //   getEventos();
+  // }, []);
+
+  // const getEventos = async () => {
+  //   const res = await axios.get(`${process.env.REACT_APP_API_URL}/events`);
+  //   setData(res.data.eventos);
+  //   console.log(res.data.eventos);
+  // };
   return (
     <div>
       <Header>
@@ -179,20 +182,26 @@ export const Gallery = ({ data }) => {
           PRÓXIMOS EVENTOS <br /> <span>[ VISÍTANOS PRONTO ]</span>
         </h1>
       </Header>
-      <Section>
-        <Portafolio>
-          {data.map((item, index) => (
-            <Project>
-              <Image className="project__image" src={item.image} />
-              <p>{item.label}</p>
-              <Title>{item.title}</Title>
-              <Overlay>
-                <BtnGallery to="/">SABER MÁS</BtnGallery>
-              </Overlay>
-            </Project>
-          ))}
-        </Portafolio>
-      </Section>
+      <Container>
+        <Section>
+          <Portafolio>
+            {events.map((item, index) => (
+              <>
+                {item.photo !== undefined && (
+                  <Project>
+                    <Image className="" src={PF + item.photo} />
+                    <p>{item.title}</p>
+                    <Title>{item.title}</Title>
+                    <Overlay>
+                      <BtnGallery to="/">SABER MÁS</BtnGallery>
+                    </Overlay>
+                  </Project>
+                )}
+              </>
+            ))}
+          </Portafolio>
+        </Section>
+      </Container>
     </div>
   );
 };

@@ -7,7 +7,113 @@ import { startLogin } from "../../actions/auth";
 import axios from "axios";
 import { useForm } from "../../hooks/useForm";
 import { Context } from "../../context/Context";
-import "./loginStyle.css";
+// import "./loginStyle.css";
+import styled, { keyframes } from "styled-components";
+
+const jump = keyframes`
+  from{
+    transform: translateY(0)
+  }
+  to{
+    transform: translateY(-3px)
+  }
+`;
+
+const Wrapper = styled.section`
+  position: absolute;
+  box-sizing: border-box;
+  background: #fdf9f3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+`;
+
+const Form = styled.form`
+  margin: 0 auto;
+  width: 100%;
+  max-width: 414px;
+  padding: 1.3rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+`;
+
+const Input = styled.input`
+  max-width: 100%;
+  padding: 11px 13px;
+  background: #f9f9fa;
+  color: #000;
+  margin-bottom: 0.9rem;
+  border-radius: 4px;
+  outline: 0;
+  border: 1px solid rgba(245, 245, 245, 0.7);
+  font-size: 14px;
+  transition: all 0.3s ease-out;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(0, 0, 0, 0.1);
+  :focus,
+  :hover {
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.15), 0 1px 5px rgba(0, 0, 0, 0.1);
+  }
+`;
+
+const Button = styled.button`
+  max-width: 100%;
+  padding: 11px 13px;
+  color: rgb(253, 249, 243);
+  font-weight: 600;
+  text-transform: uppercase;
+  background: #f03d4e;
+  border: none;
+  border-radius: 3px;
+  outline: 0;
+  cursor: pointer;
+  margin-top: 0.6rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-out;
+  :hover {
+    background: rgb(200, 50, 70);
+    animation: ${jump} 0.2s ease-out forwards;
+  }
+`;
+
+const Title = styled.h2`
+  font-weight: normal;
+  color: #2a2a29;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1);
+  text-align: center;
+`;
+const BtnInicio = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+const Btn = styled(Link)`
+  max-width: 100%;
+  padding: 11px 13px;
+  color: rgb(253, 249, 243);
+  font-weight: 600;
+  text-transform: uppercase;
+  background: #0a9396;
+  border: none;
+  border-radius: 3px;
+  outline: 0;
+  cursor: pointer;
+  margin-top: 0.6rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+  transition: all 0.3s ease-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &:hover {
+    transform: translateY(-2px);
+    text-decoration: none;
+    color: #fff;
+    background: #005f73;
+    animation: ${jump} 0.2s ease-out forwards;
+  }
+`;
 
 export const Login = () => {
   const userRef = useRef();
@@ -62,57 +168,51 @@ export const Login = () => {
     } catch (err) {
       dispatchh({ type: "LOGIN_FAILURE" });
     }
+    console.log(lEmail);
   };
   return (
     <div>
-      {/* <div className="form-usuario">
-        <div className="contenedor-form sombra-dark">
-          <h1>Iniciar Sesión</h1>
+      <Wrapper>
+        <Form onSubmit={onSubmit}>
+          <Input
+            // type="email"
+            // name="lemail"
+            // id="email"
+            // placeholder="Correo"
+            // ref={userRef}
+            // value={lEmail}
+            // onChange={handleLoginInputChange}
+            type="email"
+            class="form-control"
+            id="nombre"
+            name="lEmail"
+            placeholder="Correo"
+            ref={userRef}
+            value={lEmail}
+            onChange={handleLoginInputChange}
+          />
+          <Input
+            // type="password"
+            // name="lpassword"
+            // placeholder="Contraseña"
+            // ref={passwordRef}
+            // value={lPassword}
+            // onChange={handleLoginInputChange}
+            type="password"
+            class="form-control"
+            id="password"
+            name="lPassword"
+            placeholder="Password"
+            ref={passwordRef}
+            value={lPassword}
+            onChange={handleLoginInputChange}
+          />
+          <Button>Entrar</Button>
 
-          <form onSubmit={onSubmit}>
-            <div className="campo-form">
-              <label htmlFor="email">Email</label>
-              <input
-                type="string"
-                id="nombre"
-                name="lEmail"
-                placeholder="correo"
-                ref={userRef}
-                value={lEmail}
-                onChange={handleLoginInputChange}
-              />
-            </div>
-
-            <div className="campo-form">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                id="password"
-                name="lPassword"
-                placeholder="Tu Password"
-                ref={passwordRef}
-                value={lPassword}
-                onChange={handleLoginInputChange}
-              />
-            </div>
-
-            <div className="campo-form">
-              <input
-                type="submit"
-                className="btn btn-primario btn-block"
-                value="Iniciar Sesión"
-                disabled={isFetching}
-              />
-            </div>
-          </form>
-
-          <Link to={"/"} className="enlace-cuenta">
-            Volver a la pagina principal
-          </Link>
-        </div>
-      </div> */}
-
-      <div class="container">
+          <Btn to="/">VOLVER A INICIO</Btn>
+        </Form>
+      </Wrapper>
+      {/* <div class="container">
         <div class="row">
           <div class="col-lg-3 col-md-2"></div>
           <div class="col-lg-6 col-md-8 login-box">
@@ -169,7 +269,7 @@ export const Login = () => {
             <div class="col-lg-3 col-md-2"></div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

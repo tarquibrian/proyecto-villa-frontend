@@ -19,66 +19,67 @@ import Image18 from "../images/img18.jpg";
 import Image19 from "../images/img19.jpg";
 import Image20 from "../images/img20.jpg";
 import Image21 from "../images/img21.jpg";
+import ImageTurismo from '../images/turismo.jpg'
+import feria1 from '../images/feria1.jpg'
+import feria2 from '../images/feria2.jpg'
+import feria3 from '../images/feria.jpg'
+import feria4 from '../images/feria4.jpg'
+import feria5 from '../images/feria5.jpg'
+import turismo2 from '../images/turismo2.jpg'
 
 export const GalleryData = [
   {
-    title: "front end",
-    label: "websites",
-    image: ImageSix,
+    title: "EVENTOS",
+    label: "EVENTOS",
+    image: feria1,
     alt: "House",
   },
   {
-    title: "front end",
-    label: "websites",
-    image: ImageSeven,
+    title: "EVENTOS",
+    label: "EVENTOS",
+    image: feria2,
     alt: "House",
   },
   {
-    title: "front end",
-    label: "websites",
-    image: Image8,
+    title: "EVENTOS",
+    label: "EVENTOS",
+    image: feria3,
     alt: "House",
   },
   {
-    title: "front end",
-    label: "websites",
-    image: Image9,
+    title: "EVENTOS",
+    label: "EVENTOS",
+    image: feria4,
     alt: "House",
   },
   {
-    title: "front end",
-    label: "websites",
-    image: Image10,
+    title: "EVENTOS",
+    label: "EVENTOS",
+    image: feria5,
     alt: "House",
   },
   {
-    title: "front end",
-    label: "websites",
-    image: Image11,
+    title: "EVENTOS",
+    label: "EVENTOS",
+    image: turismo2,
     alt: "House",
   },
   {
-    title: "front end",
-    label: "websites",
-    image: Image12,
+    title: "EVENTOS",
+    label: "EVENTOS",
+    image: turismo2,
     alt: "House",
   },
   {
-    title: "front end",
-    label: "websites",
-    image: Image13,
+    title: "EVENTOS",
+    label: "EVENTOS",
+    image: turismo2,
     alt: "House",
   },
   {
-    title: "front end",
-    label: "websites",
-    image: Image14,
-    alt: "House",
-  },
-  {
-    title: "front end",
-    label: "websites",
-    image: Image15,
+    title: "EVENTOS",
+    label: "EVENTOS",
+    image: turismo2,
     alt: "House",
   },
 ];
