@@ -171,7 +171,7 @@ export const Gallery = () => {
   const abrirModal = (e) => {
     dispatch(eventSetActive(e));
     dispatch(uiOpenModal());
-  }
+  };
   return (
     <>
       <Header>
@@ -192,7 +192,9 @@ export const Gallery = () => {
                     <p>{item.title}</p>
                     <Title>{item.title}</Title>
                     <Overlay>
-                      <BtnGallery to='#' onClick={() => abrirModal(item)}>SABER MÁS</BtnGallery>
+                      <BtnGallery to="#" onClick={() => abrirModal(item)}>
+                        SABER MÁS
+                      </BtnGallery>
                       {/* <input type='button' value='click' onClick={() => abrirModal(item)} /> */}
                     </Overlay>
                   </Project>
@@ -214,7 +216,9 @@ export const Gallery = () => {
                     <p>{item.title}</p>
                     <Title>{item.title}</Title>
                     <Overlay>
-                    <BtnGallery to='#' onClick={() => abrirModal(item)}>SABER MÁS</BtnGallery>
+                      <BtnGallery to="#" onClick={() => abrirModal(item)}>
+                        SABER MÁS
+                      </BtnGallery>
                     </Overlay>
                   </Project>
                 )}
