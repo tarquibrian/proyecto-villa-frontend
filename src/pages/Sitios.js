@@ -66,7 +66,6 @@ export const Sitios = () => {
   };
 
   const mostrarSitio = (id) => {
-    console.log(id);
     setPlace(id);
   };
 

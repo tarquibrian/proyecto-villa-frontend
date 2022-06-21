@@ -16,9 +16,12 @@ import {
 import { coords } from "../../data/MapData";
 import axios from "axios";
 
+
 const initResponse = {
   response: null,
 };
+
+const PF = process.env.REACT_APP_IMG_URL + "/images/";
 export const MapPlace = ({ place }) => {
   const [sitios, setSitios] = useState([]);
   const [positionValue, setPositionValue] = useState({
@@ -40,7 +43,6 @@ export const MapPlace = ({ place }) => {
   const getSitios = async () => {
     const res = await axios.get(`${process.env.REACT_APP_API_URL}/sitios`);
     setSitios(res.data);
-    console.log("sitios", sitios);
   };
   const handleActiveMarker = (marker) => {
     if (marker === activeMarker) {
@@ -50,7 +52,6 @@ export const MapPlace = ({ place }) => {
   };
 
   const directionsCallback = (response) => {
-    console.log("RESPONSE", response);
 
     if (response !== null) {
       if (response.status === "OK") {
@@ -98,7 +99,7 @@ export const MapPlace = ({ place }) => {
         mapContainerStyle={{ width: "100%", height: "80vh" }}
       >
         {sitios.map(
-          ({ _id, title, lat,lng, description, city, country }) =>
+          ({ _id, title, lat,lng, description, city, country, photo }) =>
             _id === place && (
               <Marker
                 key={_id}
@@ -114,7 +115,7 @@ export const MapPlace = ({ place }) => {
                   <InfoWindow onCloseClick={() => setActiveMarker(null)}>
                     <div>
                       <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Plaza_de_Villa_Rivero.JPG"
+                        src={PF + photo}
                         alt="plaza villa rivero"
                         width="150"
                         height="150"
@@ -128,7 +129,7 @@ export const MapPlace = ({ place }) => {
                         className="btn btn-primary"
                         onClick={() => {capturePosition({lat,lng}); captureClick(_id)}}
                       >
-                        IR A ESTE LUGAR
+                        GENERAR RUTA
                       </button>
                     </div>
                   </InfoWindow>

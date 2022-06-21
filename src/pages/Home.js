@@ -19,6 +19,7 @@ import { VideoYoutube } from "../components/Video/VideoYoutube";
 import Work from "../components/Gallery/Work";
 import WrapperOne from "../components/WrapperOne";
 import { data } from "../data/WrapperData";
+import { HomeGallery } from "../components/Gallery/HomeGallery";
 
 const Home = () => {
   return (
@@ -30,14 +31,16 @@ const Home = () => {
       {/* <button onClick={subscribeUser}>Click Here</button> */}
 
       <Section>
-        <Work />
+        <HomeGallery />
+        {/* <Work /> */}
       </Section>
       <Content {...heroOne} />
-      <WrapperOne data={data} />
+
+      {/* <WrapperOne data={data} /> */}
 
       <Content {...heroTwo} />
       <Content {...heroThree} />
-      <WrapperOne data={data} />
+      {/* <WrapperOne data={data} /> */}
 
       <VideoYoutube />
       <Section>

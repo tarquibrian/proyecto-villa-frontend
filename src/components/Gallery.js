@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { IoMdTennisball } from "react-icons/io";
 import { Link } from "react-router-dom";
-import { Container } from "../globalStyles";
-import axios from "axios";
-import { useSelector } from "react-redux";
-
-const Section = styled.section``;
+import { Container, Section } from "../globalStyles";
+import { useDispatch, useSelector } from "react-redux";
+import moment from "moment";
+import { Heading } from "./Content/ContentStyles";
+import { uiOpenModal } from "../actions/ui";
+import { eventSetActive } from "../actions/events";
+moment.locale("es");
 
 const Portafolio = styled.section`
   width: 100%;
@@ -166,42 +167,62 @@ const PF = process.env.REACT_APP_IMG_URL + "/images/";
 
 export const Gallery = () => {
   const { events, activeEvent } = useSelector((state) => state.calendar);
-  // useEffect(() => {
-  //   getEventos();
-  // }, []);
-
-  // const getEventos = async () => {
-  //   const res = await axios.get(`${process.env.REACT_APP_API_URL}/events`);
-  //   setData(res.data.eventos);
-  //   console.log(res.data.eventos);
-  // };
+  const dispatch = useDispatch();
+  const abrirModal = (e) => {
+    dispatch(eventSetActive(e));
+    dispatch(uiOpenModal());
+  }
   return (
-    <div>
+    <>
       <Header>
         <h1>
           PRÓXIMOS EVENTOS <br /> <span>[ VISÍTANOS PRONTO ]</span>
         </h1>
       </Header>
-      <Container>
-        <Section>
+      <Section padding="30px 0">
+        <Container>
+          <Heading align={true}>EVENTOS DEL MES</Heading>
           <Portafolio>
             {events.map((item, index) => (
               <>
-                {item.photo !== undefined && (
+                {moment(item.start).isBetween("2022-06-01", "2022-06-30") ===
+                  true && (
                   <Project>
-                    <Image className="" src={PF + item.photo} />
+                    <Image src={PF + item.photo} />
                     <p>{item.title}</p>
                     <Title>{item.title}</Title>
                     <Overlay>
-                      <BtnGallery to="/">SABER MÁS</BtnGallery>
+                      <BtnGallery to='#' onClick={() => abrirModal(item)}>SABER MÁS</BtnGallery>
+                      {/* <input type='button' value='click' onClick={() => abrirModal(item)} /> */}
                     </Overlay>
                   </Project>
                 )}
               </>
             ))}
           </Portafolio>
-        </Section>
-      </Container>
-    </div>
+        </Container>
+      </Section>
+      <Section padding="30px 0">
+        <Container>
+          <Heading align={true}>TODOS LOS EVENTOS</Heading>
+          <Portafolio>
+            {events.map((item, index) => (
+              <>
+                {item.photo !== undefined && (
+                  <Project>
+                    <Image src={PF + item.photo} />
+                    <p>{item.title}</p>
+                    <Title>{item.title}</Title>
+                    <Overlay>
+                    <BtnGallery to='#' onClick={() => abrirModal(item)}>SABER MÁS</BtnGallery>
+                    </Overlay>
+                  </Project>
+                )}
+              </>
+            ))}
+          </Portafolio>
+        </Container>
+      </Section>
+    </>
   );
 };

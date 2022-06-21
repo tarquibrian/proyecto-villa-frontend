@@ -28,14 +28,7 @@ export const SliderData = [
     label: "SABER MÁS",
     image: ImageSeven,
     alt: "House",
-  },
-  {
-    title: "ENTRADA PRINCIPAL HACIA EL MUNICIPIO",
-    price: "VILLA RIVERO",
-    path: "/homes",
-    label: "SABER MÁS",
-    image: ImageFive,
-    alt: "House",
+    span: true,
   },
 
   {
@@ -78,6 +71,32 @@ export const SliderData = [
     image: Image15,
     alt: "House",
   },
+  {
+    title: "ENTRADA PRINCIPAL HACIA EL MUNICIPIO",
+    price: "VILLA RIVERO",
+    path: "/homes",
+    label: "SABER MÁS",
+    image: ImageFive,
+    alt: "House",
+    span: true,
+  },
+  // {
+  //   title: "ALCALDIA MINICIPAL FRENTE A LA PLAZA",
+  //   price: "VILLA RIVERO",
+  //   path: "/homes",
+  //   label: "SABER MÁS",
+  //   image: Image19,
+  //   alt: "House",
+  // },
+  // {
+  //   title: "ALCALDIA MINICIPAL FRENTE A LA PLAZA",
+  //   price: "VILLA RIVERO",
+  //   path: "/homes",
+  //   label: "SABER MÁS",
+  //   image: Image21,
+  //   alt: "House",
+  // },
+
   // {
   //   title: "ALCALDIA MUNICIPAL DE VILLA RIVERO",
   //   price: "16",

@@ -8,7 +8,8 @@ import "./singlePost.css";
 import { Sidebar } from "../sidebar/Sidebar";
 import { Container } from "../../globalStyles";
 import styled from "styled-components";
-// import { Container } from "../Historia/HistoriaStyle";
+import { dias_semana, meses } from "../../helpers/fecha";
+
 const Header = styled.header`
   background-color: #a0d6cc;
   color: #fff;
@@ -55,6 +56,7 @@ export const SinglePost = () => {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [updateMode, setUpdateMode] = useState(false);
+  const fecha = new Date(post.createdAt);
 
   useEffect(() => {
     const getPost = async () => {
@@ -87,6 +89,22 @@ export const SinglePost = () => {
       setUpdateMode(false);
     } catch (err) {}
   };
+
+  // console.log(
+  //   dias_semana[fecha.getDay()],
+  //   fecha.getDate(),
+  //   meses[fecha.getMonth()],
+  //   fecha.getUTCFullYear()
+  // );
+
+  const fech =
+    dias_semana[fecha.getDay()] +
+    ", " +
+    fecha.getDate() +
+    " de " +
+    meses[fecha.getMonth()] +
+    " de " +
+    fecha.getUTCFullYear();
 
   return (
     <Container>
@@ -130,9 +148,7 @@ export const SinglePost = () => {
               <b> {post.username}</b>
               {/* </Link> */}
             </span>
-            <span className="singlePostDate">
-              {new Date(post.createdAt).toDateString()}
-            </span>
+            <span className="singlePostDate">{fech}</span>
           </div>
           {updateMode ? (
             <textarea

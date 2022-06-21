@@ -4,19 +4,15 @@ import "./style.css";
 import moment from "moment";
 import DateTimePicker from "react-datetime-picker";
 import Modal from "react-modal";
-import { coords } from "../../data/MapData";
 import Swal from "sweetalert2";
 import "./style.css";
 import { uiCloseModal } from "../../actions/ui";
 import {
-  eventAddNew,
   eventClearActiveEvent,
   eventStartAddNew,
   eventStartUpdate,
-  eventUpdated,
 } from "../../actions/events";
 import { useLoadScript } from "@react-google-maps/api";
-import { Map } from "../Map/Map";
 import { MapPlace } from "../Map/MapPlace";
 import axios from "axios";
 
@@ -74,12 +70,10 @@ export const CalendarModal = () => {
       ...formValues,
       [target.name]: target.value,
     });
-    //console.log(formValues);
   };
   const getEvents = async () => {
     const res = await axios.get(`${process.env.REACT_APP_API_URL}/sitios`);
     setSitios(res.data);
-    console.log("sitios", sitios);
   };
 
   const closeModal = () => {
@@ -148,7 +142,6 @@ export const CalendarModal = () => {
     });
     //console.log("form", formValues);
   };
-
   return (
     <Modal
       isOpen={modalOpen}
@@ -183,19 +176,21 @@ export const CalendarModal = () => {
         </div>
 
         <hr />
-        <div className="form-group">
-          <input
-            type="file"
-            className={`form-control ${!titleValid && "is-invalid"}`}
-            name="file"
-            onChange={(e) => setFile(e.target.files[0])}
-            accept="image/*"
-          />
-          {/* <label for="img" class="btn btn-info">
+        {uid !== undefined && (
+          <div className="form-group">
+            <input
+              type="file"
+              className={`form-control ${!titleValid && "is-invalid"}`}
+              name="file"
+              onChange={(e) => setFile(e.target.files[0])}
+              accept="image/*"
+            />
+            {/* <label for="img" class="btn btn-info">
             Seleccionar Imagen
           </label>
           <input type="file" id="img" style={{ display: "none" }} /> */}
-        </div>
+          </div>
+        )}
         <div className="form-group">
           <input
             type="text"

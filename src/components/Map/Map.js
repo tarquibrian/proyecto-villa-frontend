@@ -44,7 +44,7 @@ const initResponse = {
 
 const PF = process.env.REACT_APP_IMG_URL + "/images/";
 
-export const Map = () => {
+export const Map = ({lugares}) => {
   const { uid } = useSelector((state) => state.auth);
   const [file, setFile] = useState(null)
   const [positionValue, setPositionValue] = useState({
@@ -82,6 +82,7 @@ export const Map = () => {
       `${process.env.REACT_APP_API_URL}/sitios` + search
     );
     setSitios(res.data);
+    console.log(res.data)
   };
 
   const directionsCallback = (response) => {

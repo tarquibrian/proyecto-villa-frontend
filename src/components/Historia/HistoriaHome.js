@@ -21,9 +21,6 @@ export const HistoriaHome = () => {
   }, [search]);
   return (
     <>
-      {/* <HistoriaHomePosts posts={posts} /> */}
-
-      {/* <Carousel titulo="HISTORIAS" /> */}
       <Section inverse="false" padding="0 0 2rem 0" position="relative">
         <Container>
           <Stories data={posts} />

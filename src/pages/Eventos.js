@@ -11,15 +11,14 @@ import axios from "axios";
 export const Eventos = () => {
   const [data, setData] = useState();
 
-  useEffect(() => {
-    getEventos();
-  }, []);
+  // useEffect(() => {
+  //   getEventos();
+  // }, []);
 
-  const getEventos = async () => {
-    const res = await axios.get(`${process.env.REACT_APP_API_URL}/events`);
-    setData(res.data.eventos);
-    console.log(res.data.eventos);
-  };
+  // const getEventos = async () => {
+  //   const res = await axios.get(`${process.env.REACT_APP_API_URL}/events`);
+  //   setData(res.data.eventos);
+  // };
 
   return (
     <>

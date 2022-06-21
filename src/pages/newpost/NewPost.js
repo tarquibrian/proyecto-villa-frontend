@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { Context } from "../../context/Context";
 import "./write.css";
-import { Sidebar } from "../../components/sidebar/Sidebar";
 
 export const NewPost = () => {
   const [title, setTitle] = useState("");
@@ -61,13 +60,12 @@ export const NewPost = () => {
               value={category}
               onChange={(e) => {
                 setCategory(e.target.value);
-                console.log(category);
               }}
             >
-              <option selected>selecione</option>
-              <option value="biografias">biografias</option>
-              <option value="mitos">mitos</option>
-              <option value="cuentos">cuentos</option>
+              <option selected>Categoria</option>
+              <option value="biografias">Biografías</option>
+              <option value="mitos">Mitos o Cuentos</option>
+              <option value="lugares">Lugares</option>
             </select>
             <div className="writeFormGroup">
               <label htmlFor="fileInput">
@@ -102,8 +100,6 @@ export const NewPost = () => {
           </form>
         </div>
       </div>
-
-      <Sidebar />
     </div>
   );
 };

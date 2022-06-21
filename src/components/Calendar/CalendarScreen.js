@@ -286,9 +286,7 @@ export const CalendarScreen = () => {
       <button className="btn btn-warning m-3" onClick={generarPDF}>
         MOSTRAR REPORTES
       </button>
-      <div>
-        
-      </div>
+      <div></div>
       {isTrue ? (
         <div>
           <Tabs>

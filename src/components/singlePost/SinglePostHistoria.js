@@ -16,6 +16,7 @@ import {
   Heading,
   TextWrapper,
 } from "../../globalStyles";
+import { dias_semana, meses } from "../../helpers/fecha";
 
 const Header = styled.header`
   background-color: #a0d6cc;
@@ -63,7 +64,7 @@ export const SinglePostHistoria = () => {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [updateMode, setUpdateMode] = useState(false);
-
+  const fecha = new Date(post.createdAt);
   useEffect(() => {
     const getPost = async () => {
       const res = await axios.get(
@@ -95,7 +96,14 @@ export const SinglePostHistoria = () => {
       setUpdateMode(false);
     } catch (err) {}
   };
-
+  const fech =
+    dias_semana[fecha.getDay()] +
+    ", " +
+    fecha.getDate() +
+    " de " +
+    meses[fecha.getMonth()] +
+    " de " +
+    fecha.getUTCFullYear();
   return (
     <>
       <Section
@@ -112,7 +120,7 @@ export const SinglePostHistoria = () => {
             <br /> <span>[ CONOCE MÁS ACERCA DEL MUNICIPIO ]</span>
           </h1>
         </Header>
-        <Container >
+        <Container>
           {/* <Sidebar /> */}
 
           <Link className="blogItem-link btn btn-secondary" to={`/historias`}>
@@ -159,9 +167,7 @@ export const SinglePostHistoria = () => {
                     <b> {post.username}</b>
                   </Link>
                 </span>
-                <span className="singlePostDate">
-                  {new Date(post.createdAt).toDateString()}
-                </span>
+                <span className="singlePostDate">{fech}</span>
               </div>
               {updateMode ? (
                 <textarea
